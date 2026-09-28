@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#100c1b" />
+    <meta
+      name="description"
+      content="Una experiencia de cumpleaños creada especialmente para Vicky."
+    />
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+    <link rel="preload" as="image" href="./assets/zoro-night.png" />
+    <title>Para Vicky ✦ 9 de octubre</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="noise" aria-hidden="true"></div>
+
+    <main id="app">
+      <section class="gate" id="gate" aria-labelledby="gate-title">
+        <div class="star-field" aria-hidden="true"></div>
+        <div class="gate__halo" aria-hidden="true"></div>
+
+        <div class="gate__content">
+          <p class="eyebrow"><span></span> Para Vicky <span></span></p>
+          <h1 id="gate-title">Algo hermoso<br />está por comenzar.</h1>
+          <p class="gate__intro">
+            Guardé este pequeño universo para vos. Se abre cuando empiece tu día.
+          </p>
+
+          <div class="countdown" aria-label="Cuenta regresiva para el cumpleaños de Vicky">
+            <div class="countdown__unit">
+              <strong id="days">00</strong><span>días</span>
+            </div>
+            <i>:</i>
+            <div class="countdown__unit">
+              <strong id="hours">00</strong><span>horas</span>
+            </div>
+            <i>:</i>
+            <div class="countdown__unit">
+              <strong id="minutes">00</strong><span>min</span>
+            </div>
+            <i>:</i>
+            <div class="countdown__unit">
+              <strong id="seconds">00</strong><span>seg</span>
+            </div>
+          </div>
+
+          <p class="date-lock"><span class="lock-icon">◇</span> 9 de octubre · 00:00</p>
+
+          <button class="primary-button hidden" id="enter-button" type="button">
+            <span>Comenzar el viaje</span>
+            <span class="button-arrow">→</span>
+          </button>
+
+          <p class="preview-badge hidden" id="preview-badge">Vista previa activa</p>
+        </div>
+
+        <p class="signature">Hecho con amor, sólo para vos</p>
+      </section>
+
+      <section class="journey hidden" id="journey" aria-label="Una historia para Vicky">
+        <header class="journey__header">
+          <div class="mini-mark">V</div>
+          <p id="scene-kicker">Para Vicky</p>
+          <button class="icon-button" id="exit-button" type="button" aria-label="Volver a la portada">×</button>
+        </header>
+
+        <div class="scene-stage" id="scene-stage" aria-live="polite"></div>
+
+        <footer class="journey__footer">
+          <button class="text-button" id="previous-button" type="button">← Atrás</button>
+          <div class="progress" id="progress" aria-label="Progreso de la historia"></div>
+          <button class="text-button text-button--next" id="next-button" type="button">Seguir <span>→</span></button>
+        </footer>
+      </section>
+
+      <section class="gifts hidden" id="gifts" aria-labelledby="gifts-title">
+        <div class="gifts__backdrop" aria-hidden="true"></div>
+        <header class="gifts__header">
+          <p class="eyebrow"><span></span> Tres formas de celebrarte <span></span></p>
+          <h2 id="gifts-title">Elegí una carta,<br />mi amor.</h2>
+          <p>Podés descubrirlas en el orden que quieras. Las tres son para vos.</p>
+        </header>
+
+        <div class="gift-grid" id="gift-grid"></div>
+
+        <div class="closing hidden" id="closing" aria-live="polite">
+          <span class="closing__spark">✦</span>
+          <p id="closing-message"></p>
+        </div>
+
+        <button class="text-button gifts__restart" id="restart-button" type="button">Volver a vivirlo ↺</button>
+      </section>
+    </main>
+
+    <noscript>Esta experiencia necesita JavaScript activado para comenzar.</noscript>
+    <script src="./content.js"></script>
+    <script src="./app.js"></script>
+  </body>
+</html>
