@@ -66,16 +66,30 @@
   function renderScene(scene, index) {
     const article = document.createElement("article");
     article.className = `scene scene--${scene.theme}`;
-    article.style.setProperty("--scene-image", scene.image ? `url('${scene.image}')` : "none");
+    const sparkles = Array.from({ length: 14 }, (_, sparkleIndex) => {
+      const x = (sparkleIndex * 37 + 11) % 96;
+      const y = (sparkleIndex * 53 + 7) % 90;
+      const delay = (sparkleIndex % 7) * 0.35;
+      const size = 0.45 + (sparkleIndex % 4) * 0.18;
+      return `<i style="--x:${x}%;--y:${y}%;--delay:${delay}s;--size:${size}rem">✦</i>`;
+    }).join("");
+    const visual = scene.image
+      ? `<img class="scene__picture" src="${scene.image}" alt="" />`
+      : `<div class="scene__celestial" aria-hidden="true"><span></span><i>✦</i></div>`;
     article.innerHTML = `
-      <div class="scene__image" aria-hidden="true"></div>
-      <div class="scene__shade" aria-hidden="true"></div>
-      <div class="scene__ornament" aria-hidden="true"><span>✦</span></div>
+      <div class="scene__wash" aria-hidden="true"></div>
+      <div class="scene__sparkles" aria-hidden="true">${sparkles}</div>
       <div class="scene__copy">
         <p class="scene__number">${twoDigits(index + 1)} / ${twoDigits(content.scenes.length)}</p>
         <p class="scene__kicker">${scene.kicker}</p>
         <h2>${scene.title}</h2>
         <p class="scene__text">${scene.text}</p>
+      </div>
+      <div class="scene__visual" aria-hidden="true">
+        <div class="scene__orbit scene__orbit--one"></div>
+        <div class="scene__orbit scene__orbit--two"></div>
+        <div class="scene__frame">${visual}</div>
+        <span class="scene__seal">V</span>
       </div>
       <p class="swipe-hint">Deslizá para continuar <span>→</span></p>
     `;
@@ -85,6 +99,7 @@
   function showScene(index) {
     activeScene = Math.min(Math.max(index, 0), content.scenes.length - 1);
     stage.replaceChildren(renderScene(content.scenes[activeScene], activeScene));
+    stage.scrollTop = 0;
     sceneKicker.textContent = content.scenes[activeScene].kicker;
     previousButton.disabled = activeScene === 0;
     nextButton.innerHTML = activeScene === content.scenes.length - 1 ? "Ver mis regalos <span>→</span>" : "Seguir <span>→</span>";
@@ -187,6 +202,92 @@
     }, { passive: true });
   }
 
+  function addSceneParallax() {
+    stage.addEventListener("pointermove", (event) => {
+      if (reduceMotion) return;
+      const bounds = stage.getBoundingClientRect();
+      const x = ((event.clientX - bounds.left) / bounds.width - 0.5) * 12;
+      const y = ((event.clientY - bounds.top) / bounds.height - 0.5) * 10;
+      stage.style.setProperty("--parallax-x", `${x}px`);
+      stage.style.setProperty("--parallax-y", `${y}px`);
+    });
+    stage.addEventListener("pointerleave", () => {
+      stage.style.setProperty("--parallax-x", "0px");
+      stage.style.setProperty("--parallax-y", "0px");
+    });
+  }
+
+  function initStarVoyage() {
+    const canvas = document.querySelector("#star-voyage");
+    const context = canvas.getContext("2d");
+    const palette = ["255,249,238", "244,217,154", "229,183,186"];
+    let width = 0;
+    let height = 0;
+    let pixelRatio = 1;
+    let stars = [];
+
+    const resetStar = (star, atEdge = false) => {
+      star.x = (Math.random() - 0.5) * width;
+      star.y = (Math.random() - 0.5) * height;
+      star.z = atEdge ? width : Math.random() * width;
+      star.previousZ = star.z;
+      star.color = palette[Math.floor(Math.random() * palette.length)];
+      star.alpha = 0.35 + Math.random() * 0.65;
+    };
+
+    const resize = () => {
+      const bounds = canvas.getBoundingClientRect();
+      width = Math.max(1, bounds.width);
+      height = Math.max(1, bounds.height);
+      pixelRatio = Math.min(window.devicePixelRatio || 1, 2);
+      canvas.width = Math.floor(width * pixelRatio);
+      canvas.height = Math.floor(height * pixelRatio);
+      context.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
+      stars = Array.from({ length: Math.min(180, Math.floor(width / 7)) }, () => {
+        const star = {};
+        resetStar(star);
+        return star;
+      });
+    };
+
+    const draw = () => {
+      context.clearRect(0, 0, width, height);
+      const centerX = width / 2;
+      const centerY = height / 2;
+      const speed = reduceMotion ? 0.35 : 4.2;
+
+      stars.forEach((star) => {
+        star.z -= speed;
+        if (star.z < 1) resetStar(star, true);
+
+        const x = star.x / star.z * width + centerX;
+        const y = star.y / star.z * width + centerY;
+        const previousX = star.x / star.previousZ * width + centerX;
+        const previousY = star.y / star.previousZ * width + centerY;
+        star.previousZ = star.z;
+
+        if (x < -40 || x > width + 40 || y < -40 || y > height + 40) {
+          resetStar(star, true);
+          return;
+        }
+
+        const depth = 1 - star.z / width;
+        context.beginPath();
+        context.moveTo(previousX, previousY);
+        context.lineTo(x, y);
+        context.strokeStyle = `rgba(${star.color},${star.alpha * Math.max(0.18, depth)})`;
+        context.lineWidth = Math.max(0.55, depth * 2.2);
+        context.stroke();
+      });
+
+      window.requestAnimationFrame(draw);
+    };
+
+    resize();
+    window.addEventListener("resize", resize, { passive: true });
+    draw();
+  }
+
   enterButton.addEventListener("click", showJourney);
   exitButton.addEventListener("click", showGate);
   previousButton.addEventListener("click", () => showScene(activeScene - 1));
@@ -207,6 +308,8 @@
   buildProgress();
   buildGifts();
   addSwipeNavigation();
+  addSceneParallax();
+  initStarVoyage();
   updateCountdown();
   countdownTimer = window.setInterval(updateCountdown, 1000);
 })();
