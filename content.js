@@ -26,7 +26,7 @@ window.VICKY_CONTENT = {
         "Admiro tanto tu fortaleza... esa manera de seguir adelante incluso cuando te toca lidiar con tus propias tormentas en silencio, sosteniéndote con entereza y manteniéndote fiel a tu esencia. En un mundo que tantas veces nos empuja a endurecernos para no salir lastimados, tu capacidad de seguir siendo transparente y auténtica vale el doble.",
         "Ojalá nunca dudes de todo lo bueno que irradiás ni del impacto tan real y luminoso que dejás en quienes tenemos la suerte de conocerte de verdad. Tu existencia merece ser celebrada con ganas, con orgullo y con todo el amor posible. Hoy y cada día de tu vida.",
       ],
-      stickers: "./assets/stickers-one-piece-letter.png",
+      stickers: "./assets/stickers-one-piece-letter-v2.png",
       theme: "one-piece-letter",
     },
     {
@@ -37,7 +37,7 @@ window.VICKY_CONTENT = {
         "Te escribo porque sé lo que siento y, sobre todo, porque sé lo que vale lo nuestro. Creo de verdad que cuando el amor es real, las pausas no son un punto final, sino un espacio necesario para respirar hondo y aprender a cuidarnos mejor. Siento que todavía nos queda mucho camino por descubrir y mucho por demostrar, pero esta vez desde otro lugar: desde la paz, la complicidad genuina y la madurez de elegirnos con calma, sin tormentas de por medio.",
         "No tenés que responder nada a las apuradas ni sentir ningún tipo de compromiso. Solo quería que en este día tuvieras la certeza de que mis ganas de construir con vos siguen vivas, sanas y serenas. Y como hoy se trata de celebrar tu vida, pensé en tres formas distintas de regalarte un momento juntos, para que elijas la que más resuene con tus ganas y tu tiempo:",
       ],
-      stickers: "./assets/stickers-plans-letter.png",
+      stickers: "./assets/stickers-plans-letter-v2.png",
       theme: "plans-letter",
     },
   ],

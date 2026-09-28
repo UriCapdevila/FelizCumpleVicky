@@ -1790,7 +1790,7 @@ button:focus-visible {
 
 .gifts__backdrop {
   opacity: .2;
-  background: url("./assets/stickers-plans-letter.png") center 2rem / min(68rem, 96vw) auto no-repeat;
+  background: url("./assets/stickers-plans-letter-v2.png") center 2rem / min(68rem, 96vw) auto no-repeat;
   filter: none;
   transform: none;
 }
