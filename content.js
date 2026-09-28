@@ -17,7 +17,7 @@ window.VICKY_CONTENT = {
       kicker: "Primera parada · El valor",
       title: "Por todo lo que llevás adentro.",
       text: "Este es el lugar para tu texto sobre Zoro: lo que representa para Vicky, lo que admirás de ella y por qué elegiste esta parte del viaje.",
-      image: "./assets/zoro-night.png",
+      image: "./assets/zoro-wano-crew.png",
       theme: "dark",
     },
     {
