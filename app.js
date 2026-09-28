@@ -65,33 +65,27 @@
 
   function renderScene(scene, index) {
     const article = document.createElement("article");
-    article.className = `scene scene--${scene.theme}`;
-    const sparkles = Array.from({ length: 14 }, (_, sparkleIndex) => {
-      const x = (sparkleIndex * 37 + 11) % 96;
-      const y = (sparkleIndex * 53 + 7) % 90;
-      const delay = (sparkleIndex % 7) * 0.35;
-      const size = 0.45 + (sparkleIndex % 4) * 0.18;
-      return `<i style="--x:${x}%;--y:${y}%;--delay:${delay}s;--size:${size}rem">✦</i>`;
-    }).join("");
-    const visual = scene.image
-      ? `<img class="scene__picture" src="${scene.image}" alt="" />`
-      : `<div class="scene__celestial" aria-hidden="true"><span></span><i>✦</i></div>`;
+    article.className = `scene scene--letter scene--${scene.theme}`;
+    const paragraphs = (scene.paragraphs || [scene.text])
+      .map((paragraph) => `<p>${paragraph}</p>`)
+      .join("");
     article.innerHTML = `
-      <div class="scene__wash" aria-hidden="true"></div>
-      <div class="scene__sparkles" aria-hidden="true">${sparkles}</div>
-      <div class="scene__copy">
-        <p class="scene__number">${twoDigits(index + 1)} / ${twoDigits(content.scenes.length)}</p>
-        <p class="scene__kicker">${scene.kicker}</p>
-        <h2>${scene.title}</h2>
-        <p class="scene__text">${scene.text}</p>
-      </div>
-      <div class="scene__visual" aria-hidden="true">
-        <div class="scene__orbit scene__orbit--one"></div>
-        <div class="scene__orbit scene__orbit--two"></div>
-        <div class="scene__frame">${visual}</div>
-        <span class="scene__seal">V</span>
-      </div>
-      <p class="swipe-hint">Deslizá para continuar <span>→</span></p>
+      <div class="letter-desk" aria-hidden="true"><i>✦</i><i>♡</i><i>✦</i></div>
+      <section class="letter-sheet">
+        <img class="letter-sheet__stickers" src="${scene.stickers}" alt="" />
+        <span class="letter-sheet__tape letter-sheet__tape--left" aria-hidden="true"></span>
+        <span class="letter-sheet__tape letter-sheet__tape--right" aria-hidden="true"></span>
+        <div class="letter-sheet__content">
+          <div class="letter-sheet__heading">
+            <p class="scene__number">Hoja ${twoDigits(index + 1)} de ${twoDigits(content.scenes.length)}</p>
+            <p class="scene__kicker">${scene.kicker}</p>
+          </div>
+          <h2>${scene.title}</h2>
+          <div class="letter-sheet__body">${paragraphs}</div>
+          ${scene.signoff ? `<p class="letter-sheet__signoff">${scene.signoff}</p>` : ""}
+        </div>
+        <span class="letter-sheet__corner" aria-hidden="true"></span>
+      </section>
     `;
     return article;
   }
