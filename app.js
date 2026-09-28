@@ -18,6 +18,7 @@
   const sceneKicker = document.querySelector("#scene-kicker");
   const previewBadge = document.querySelector("#preview-badge");
   const closing = document.querySelector("#closing");
+  const envelope = document.querySelector("#envelope-countdown");
 
   let activeScene = 0;
   let countdownTimer;
@@ -41,6 +42,8 @@
 
     if (isOpen) {
       setCountdown(0);
+      envelope.classList.add("is-open");
+      gate.classList.add("is-unlocked");
       enterButton.classList.remove("hidden");
       document.querySelector(".date-lock").innerHTML = "<span class=\"lock-icon\">✦</span> Este momento ya es tuyo";
       if (previewMode && distance > 0) previewBadge.classList.remove("hidden");

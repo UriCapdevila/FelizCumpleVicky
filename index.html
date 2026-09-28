@@ -30,35 +30,47 @@
 
         <div class="gate__content">
           <p class="eyebrow"><span></span> Para Vicky <span></span></p>
-          <h1 id="gate-title">Algo hermoso<br />está por comenzar.</h1>
+          <h1 id="gate-title">Una carta está<br />esperando por vos.</h1>
           <p class="gate__intro">
-            Guardé este pequeño universo para vos. Se abre cuando empiece tu día.
+            La preparé con tiempo, con ternura y con todo lo que quería decirte. Se abre cuando empiece tu día.
           </p>
 
-          <div class="countdown" aria-label="Cuenta regresiva para el cumpleaños de Vicky">
-            <div class="countdown__unit">
-              <strong id="days">00</strong><span>días</span>
+          <div class="envelope-countdown" id="envelope-countdown">
+            <div class="envelope__letter">
+              <span class="envelope__letter-date">9 de octubre</span>
+              <strong>Feliz cumpleaños,<br />mi princesa.</strong>
+              <button class="primary-button hidden" id="enter-button" type="button">
+                <span>Abrir mi carta</span>
+                <span class="button-arrow">→</span>
+              </button>
             </div>
-            <i>:</i>
-            <div class="countdown__unit">
-              <strong id="hours">00</strong><span>horas</span>
+
+            <div class="envelope__back" aria-hidden="true"></div>
+            <div class="envelope__flap" aria-hidden="true"></div>
+            <div class="envelope__pocket">
+              <div class="envelope__countdown-panel">
+                <div class="countdown" aria-label="Cuenta regresiva para el cumpleaños de Vicky">
+                  <div class="countdown__unit">
+                    <strong id="days">00</strong><span>días</span>
+                  </div>
+                  <i>:</i>
+                  <div class="countdown__unit">
+                    <strong id="hours">00</strong><span>horas</span>
+                  </div>
+                  <i>:</i>
+                  <div class="countdown__unit">
+                    <strong id="minutes">00</strong><span>min</span>
+                  </div>
+                  <i>:</i>
+                  <div class="countdown__unit">
+                    <strong id="seconds">00</strong><span>seg</span>
+                  </div>
+                </div>
+                <p class="date-lock"><span class="lock-icon">◇</span> 9 de octubre · 00:00</p>
+              </div>
             </div>
-            <i>:</i>
-            <div class="countdown__unit">
-              <strong id="minutes">00</strong><span>min</span>
-            </div>
-            <i>:</i>
-            <div class="countdown__unit">
-              <strong id="seconds">00</strong><span>seg</span>
-            </div>
+            <span class="envelope__seal" aria-hidden="true">V</span>
           </div>
-
-          <p class="date-lock"><span class="lock-icon">◇</span> 9 de octubre · 00:00</p>
-
-          <button class="primary-button hidden" id="enter-button" type="button">
-            <span>Comenzar el viaje</span>
-            <span class="button-arrow">→</span>
-          </button>
 
           <p class="preview-badge hidden" id="preview-badge">Vista previa activa</p>
         </div>
