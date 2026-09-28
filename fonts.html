@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#2c1721" />
+    <meta name="description" content="Comparador de tipografías para la experiencia de Vicky." />
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Marcellus&family=Parisienne&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <title>Elegir la letra de Vicky</title>
+    <link rel="stylesheet" href="./fonts.css" />
+  </head>
+  <body>
+    <main>
+      <nav>
+        <a href="./?preview=1">← Volver a la experiencia</a>
+        <span>Estudio de tipografías</span>
+      </nav>
+
+      <header class="intro">
+        <p class="eyebrow">Una letra para su historia</p>
+        <h1>¿Cuál se siente<br />más Vicky?</h1>
+        <p>Elegí una opción para verla aplicada en grande. Todavía no modifica la experiencia principal.</p>
+      </header>
+
+      <section class="live-preview" aria-live="polite">
+        <div class="live-preview__glow" aria-hidden="true"></div>
+        <p class="live-preview__label" id="preview-label">Opción A · Romance clásico</p>
+        <h2 id="preview-title">Para mi princesa Vicky</h2>
+        <p class="live-preview__body">
+          Hay personas que hacen que todos los días tengan algo para recordar. Esta historia existe para celebrar la magia que llevás adentro.
+        </p>
+        <span class="live-preview__mark">✦</span>
+      </section>
+
+      <section class="options" aria-labelledby="options-title">
+        <div class="options__heading">
+          <p class="eyebrow">Cinco caminos</p>
+          <h2 id="options-title">Probá cada personalidad</h2>
+        </div>
+
+        <div class="font-grid">
+          <button class="font-card is-selected" type="button" data-font="'Cormorant Garamond', serif" data-name="Opción A · Romance clásico">
+            <span class="font-card__letter font-cormorant">Aa</span>
+            <span class="font-card__name">Cormorant Garamond</span>
+            <span class="font-card__mood">Romántica, delicada y de cuento ilustrado.</span>
+            <span class="font-card__sample font-cormorant">Érase una vez, Vicky…</span>
+          </button>
+
+          <button class="font-card" type="button" data-font="'Playfair Display', serif" data-name="Opción B · Elegancia real">
+            <span class="font-card__letter font-playfair">Aa</span>
+            <span class="font-card__name">Playfair Display</span>
+            <span class="font-card__mood">Elegante, luminosa y con presencia de reina.</span>
+            <span class="font-card__sample font-playfair">Érase una vez, Vicky…</span>
+          </button>
+
+          <button class="font-card" type="button" data-font="'Cinzel Decorative', serif" data-name="Opción C · Cuento encantado">
+            <span class="font-card__letter font-cinzel">Aa</span>
+            <span class="font-card__name">Cinzel Decorative</span>
+            <span class="font-card__mood">La más fantástica, ceremonial y principesca.</span>
+            <span class="font-card__sample font-cinzel">Érase una vez, Vicky…</span>
+          </button>
+
+          <button class="font-card" type="button" data-font="'Marcellus', serif" data-name="Opción D · Palacio clásico">
+            <span class="font-card__letter font-marcellus">Aa</span>
+            <span class="font-card__name">Marcellus</span>
+            <span class="font-card__mood">Serena, refinada y con aire de película clásica.</span>
+            <span class="font-card__sample font-marcellus">Érase una vez, Vicky…</span>
+          </button>
+
+          <button class="font-card" type="button" data-font="'Parisienne', cursive" data-name="Opción E · Firma de princesa">
+            <span class="font-card__letter font-parisienne">Aa</span>
+            <span class="font-card__name">Parisienne</span>
+            <span class="font-card__mood">Íntima, manuscrita y perfecta para dedicatorias.</span>
+            <span class="font-card__sample font-parisienne">Érase una vez, Vicky…</span>
+          </button>
+        </div>
+      </section>
+    </main>
+    <script src="./fonts.js"></script>
+  </body>
+</html>

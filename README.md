@@ -19,6 +19,10 @@ La página normal permanece bloqueada hasta la fecha configurada. Para probar la
 
 Ejemplo local: `http://localhost:8888/?preview=1`
 
+## Comparar tipografías
+
+Abrí `fonts.html` para probar cinco estilos de títulos sobre el mismo texto: Cormorant Garamond, Playfair Display, Cinzel Decorative, Marcellus y Parisienne. La selección es solamente visual; la tipografía principal se cambia cuando esté elegida la opción final.
+
 ## Publicar en Netlify
 
 El proyecto no necesita build ni servidor. En Netlify, conectá este repositorio y dejá vacío el comando de build. El directorio de publicación es `.` (la raíz), ya configurado en `netlify.toml`.
