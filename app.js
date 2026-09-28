@@ -103,6 +103,10 @@
     sceneKicker.textContent = content.scenes[activeScene].kicker;
     previousButton.disabled = activeScene === 0;
     nextButton.innerHTML = activeScene === content.scenes.length - 1 ? "Ver mis regalos <span>→</span>" : "Seguir <span>→</span>";
+    nextButton.setAttribute(
+      "aria-label",
+      activeScene === content.scenes.length - 1 ? "Ver mis regalos" : "Siguiente escena",
+    );
 
     [...progress.children].forEach((dot, index) => {
       dot.classList.toggle("is-active", index === activeScene);

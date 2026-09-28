@@ -1446,3 +1446,102 @@ button:focus-visible {
   .scene__seal,
   .scene__celestial { transform: none !important; }
 }
+
+/* Navegación flotante: un único control, sin barra inferior. */
+.journey {
+  grid-template-rows: minmax(0, 1fr);
+}
+
+.scene {
+  padding-bottom: clamp(4.75rem, 9vh, 6rem);
+}
+
+.journey__footer {
+  position: absolute;
+  right: clamp(.85rem, 2.5vw, 1.8rem);
+  bottom: clamp(.85rem, 2.5vw, 1.6rem);
+  left: auto;
+  width: auto;
+  min-height: 0;
+  padding: 0;
+  display: block;
+  color: inherit;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+  backdrop-filter: none;
+  pointer-events: none;
+}
+
+#previous-button,
+.journey__footer .progress,
+.swipe-hint {
+  display: none;
+}
+
+#next-button {
+  position: relative;
+  width: 3.35rem;
+  height: 3.35rem;
+  min-height: 0;
+  padding: 0;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  color: transparent;
+  font-size: 0;
+  line-height: 1;
+  border: 1px solid rgba(198, 155, 69, .58);
+  border-radius: 50%;
+  background: rgba(255, 253, 249, .9);
+  box-shadow: 0 .65rem 1.8rem rgba(141, 88, 101, .2), inset 0 1px rgba(255, 255, 255, .92);
+  backdrop-filter: blur(12px);
+  pointer-events: auto;
+  transition: transform .3s ease, color .3s ease, background .3s ease, box-shadow .3s ease;
+}
+
+#next-button::before {
+  content: "";
+  position: absolute;
+  inset: .28rem;
+  border: 1px solid rgba(184, 121, 134, .22);
+  border-radius: inherit;
+}
+
+#next-button span {
+  position: relative;
+  z-index: 1;
+  display: block;
+  color: var(--rose-deep);
+  font-family: var(--sans);
+  font-size: 1.08rem;
+  transform: translateX(0);
+  transition: transform .3s ease, color .3s ease;
+}
+
+#next-button:hover {
+  color: transparent;
+  background: var(--rose);
+  box-shadow: 0 .85rem 2.1rem rgba(141, 88, 101, .28);
+  transform: translateY(-2px);
+}
+
+#next-button:hover span {
+  color: white;
+  transform: translateX(.13rem);
+}
+
+#next-button:active {
+  transform: translateY(0) scale(.95);
+}
+
+@media (min-width: 48rem) {
+  .scene { padding-bottom: 3.25rem; }
+}
+
+@media (max-width: 30rem) {
+  #next-button {
+    width: 3.1rem;
+    height: 3.1rem;
+  }
+}
