@@ -49,7 +49,7 @@ window.VICKY_CONTENT = {
       title: "Un día de spa juntos",
       short: "Desconectar, respirar y disfrutar",
       why: "Para desconectar del mundo exterior, reconectar con el disfrute puro, aflojar las tensiones y regalarle un respiro profundo a esa mente tuya que tantas veces carga con demasiado.",
-      detail: "Cuando vos lo sientas, sin presiones y a tu propio ritmo.",
+      detail: "",
     },
     {
       number: "02",
@@ -65,7 +65,7 @@ window.VICKY_CONTENT = {
       title: "Una tarde de shopping",
       short: "Glamour, estilo y muchos mimos",
       why: "Para que reconectes de lleno con ese glamour, el estilo y la estética que tanto te apasionan. Tu presencia ilumina cualquier lugar por donde caminás; tenés la magia de convertir algo casual en un momento maravilloso, y mi único deseo es acompañarte, mimarte y hacerte sentir la estrella que sos.",
-      detail: "Cuando tengas ganas, sin presiones y a tu propio ritmo.",
+      detail: "",
     },
   ],
 

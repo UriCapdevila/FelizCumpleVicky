@@ -147,7 +147,7 @@
             <span class="gift-card__number">${gift.number}</span>
             <span class="gift-card__symbol gift-card__symbol--small">${gift.symbol}</span>
             <span class="gift-card__why">${gift.why}</span>
-            <span class="gift-card__detail">${gift.detail}</span>
+            ${gift.detail ? `<span class="gift-card__detail">${gift.detail}</span>` : ""}
             <span class="gift-card__open">Volver a cerrar</span>
           </span>
         </span>

@@ -1149,6 +1149,8 @@ button:focus-visible {
   background:
     radial-gradient(circle at 78% 12%, rgba(241, 217, 157, .32), transparent 26%),
     linear-gradient(145deg, #b87986, #91606b);
+  justify-content: flex-start;
+  padding: 3rem clamp(1.35rem, 2vw, 2rem) 1.2rem;
   transform: rotateY(180deg);
 }
 
@@ -1174,7 +1176,7 @@ button:focus-visible {
   animation: symbolFloat 4s ease-in-out infinite;
 }
 
-.gift-card__symbol--small { margin-bottom: 1rem; color: var(--gold-bright); font-size: 2.2rem; }
+.gift-card__symbol--small { margin-bottom: .75rem; color: var(--gold-bright); font-size: 2.2rem; }
 
 .gift-card__title {
   max-width: 11ch;
@@ -1220,6 +1222,13 @@ button:focus-visible {
 }
 
 .gift-card__back .gift-card__open { color: var(--gold-bright); }
+
+.gift-card__back .gift-card__open {
+  position: static;
+  flex: 0 0 auto;
+  margin-top: auto;
+  padding-top: .9rem;
+}
 
 .closing {
   width: min(100%, 45rem);
@@ -1773,8 +1782,8 @@ button:focus-visible {
 }
 
 .gift-card__title { max-width: 13ch; }
-.gift-card__why { font-size: clamp(1.06rem, 2.4vw, 1.42rem); line-height: 1.35; }
-.gift-card__detail { font-size: .8rem; }
+.gift-card__why { font-size: clamp(1.06rem, 1.8vw, 1.3rem); line-height: 1.38; }
+.gift-card__detail { margin-top: .75rem; font-size: .78rem; }
 .closing p { white-space: pre-line; }
 
 @media (min-width: 56rem) {
