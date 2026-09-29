@@ -1671,9 +1671,10 @@ button:focus-visible {
   padding: clamp(2.1rem, 5vw, 4rem);
   border: 1px solid rgba(198, 155, 69, .2);
   border-radius: .35rem;
-  background: rgba(255, 253, 249, .88);
-  box-shadow: 0 1.2rem 3.8rem rgba(141, 88, 101, .09), inset 0 1px rgba(255,255,255,.92);
-  backdrop-filter: blur(5px);
+  background: linear-gradient(145deg, rgba(255, 253, 249, .79), rgba(255, 248, 241, .72));
+  box-shadow: 0 1.2rem 3.8rem rgba(141, 88, 101, .09), inset 0 1px rgba(255,255,255,.74);
+  -webkit-backdrop-filter: blur(2.5px) saturate(.92);
+  backdrop-filter: blur(2.5px) saturate(.92);
 }
 
 .letter-sheet__heading {
@@ -1707,14 +1708,16 @@ button:focus-visible {
   line-height: 1.02;
   letter-spacing: -.04em;
   text-align: center;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, .94), 0 0 .5rem rgba(255, 253, 249, .74);
   text-wrap: balance;
 }
 
 .letter-sheet__body {
-  color: #624b55;
+  color: #563d48;
   font-family: var(--serif);
   font-size: clamp(.99rem, 1.4vw, 1.08rem);
   line-height: 1.82;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, .96), 0 0 .42rem rgba(255, 253, 249, .82);
   text-wrap: pretty;
 }
 
@@ -1767,12 +1770,12 @@ button:focus-visible {
 }
 
 .scene--one-piece-letter .letter-sheet__content {
-  background: rgba(255, 253, 249, .9);
+  background: linear-gradient(145deg, rgba(255, 253, 249, .8), rgba(255, 248, 241, .74));
 }
 
 .scene--plans-letter .letter-sheet__content {
   border-color: rgba(198, 155, 69, .3);
-  background: rgba(255, 253, 249, .89);
+  background: linear-gradient(145deg, rgba(255, 253, 249, .76), rgba(255, 248, 241, .69));
 }
 
 .scene--plans-letter .letter-sheet__body p:last-child {
@@ -1828,7 +1831,7 @@ button:focus-visible {
     width: calc(100% - 2.25rem);
     margin: clamp(7.5rem, 27vw, 11rem) auto 6.5rem;
     padding: clamp(1.35rem, 5.5vw, 2.5rem);
-    background: rgba(255, 253, 249, .9);
+    background: linear-gradient(145deg, rgba(255, 253, 249, .84), rgba(255, 248, 241, .79));
   }
 
   .letter-sheet__stickers {
