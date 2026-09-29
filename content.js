@@ -26,7 +26,7 @@ window.VICKY_CONTENT = {
         "Admiro tanto tu fortaleza... esa manera de seguir adelante incluso cuando te toca lidiar con tus propias tormentas en silencio, sosteniéndote con entereza y manteniéndote fiel a tu esencia. En un mundo que tantas veces nos empuja a endurecernos para no salir lastimados, tu capacidad de seguir siendo transparente y auténtica vale el doble.",
         "Ojalá nunca dudes de todo lo bueno que irradiás ni del impacto tan real y luminoso que dejás en quienes tenemos la suerte de conocerte de verdad. Tu existencia merece ser celebrada con ganas, con orgullo y con todo el amor posible. Hoy y cada día de tu vida.",
       ],
-      stickers: "./assets/stickers-one-piece-letter-v2.png",
+      stickers: "./assets/stickers-one-piece-letter-v3.png",
       theme: "one-piece-letter",
     },
     {
