@@ -1677,41 +1677,6 @@ button:focus-visible {
   backdrop-filter: blur(2.5px) saturate(.92);
 }
 
-.letter-sheet__heading {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  padding-bottom: 1rem;
-  border-bottom: 1px solid rgba(198, 155, 69, .25);
-}
-
-.scene--letter .scene__number,
-.scene--letter .scene__kicker {
-  margin: 0;
-  color: var(--rose-deep);
-  font-family: var(--sans);
-  font-size: .66rem;
-  font-weight: 700;
-  letter-spacing: .16em;
-  line-height: 1.45;
-  text-transform: uppercase;
-}
-
-.scene--letter .scene__number { color: var(--gold); white-space: nowrap; }
-
-.scene--letter h2 {
-  max-width: 13ch;
-  margin: clamp(1.7rem, 4vw, 2.75rem) auto clamp(2rem, 4vw, 3rem);
-  color: var(--ink);
-  font-size: clamp(2.4rem, 5.8vw, 4.8rem);
-  line-height: 1.02;
-  letter-spacing: -.04em;
-  text-align: center;
-  text-shadow: 0 1px 0 rgba(255, 255, 255, .94), 0 0 .5rem rgba(255, 253, 249, .74);
-  text-wrap: balance;
-}
-
 .letter-sheet__body {
   color: #563d48;
   font-family: var(--serif);
@@ -1841,10 +1806,6 @@ button:focus-visible {
     object-position: top center;
   }
 
-  .scene--letter h2 {
-    margin-block: 1.5rem 1.8rem;
-    font-size: clamp(2.15rem, 10vw, 3.65rem);
-  }
 }
 
 @media (max-width: 34rem) {
@@ -1862,14 +1823,6 @@ button:focus-visible {
     padding: 1.2rem 1.15rem 1.8rem;
     backdrop-filter: blur(3px);
   }
-
-  .letter-sheet__heading {
-    align-items: flex-start;
-    flex-direction: column;
-    gap: .35rem;
-  }
-
-  .scene--letter h2 { font-size: clamp(2rem, 9.8vw, 2.85rem); }
 
   .letter-sheet__body {
     font-size: .98rem;

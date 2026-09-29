@@ -74,16 +74,11 @@
       .join("");
     article.innerHTML = `
       <div class="letter-desk" aria-hidden="true"><i>✦</i><i>♡</i><i>✦</i></div>
-      <section class="letter-sheet">
+      <section class="letter-sheet" aria-label="${scene.title}">
         <img class="letter-sheet__stickers" src="${scene.stickers}" alt="" />
         <span class="letter-sheet__tape letter-sheet__tape--left" aria-hidden="true"></span>
         <span class="letter-sheet__tape letter-sheet__tape--right" aria-hidden="true"></span>
         <div class="letter-sheet__content">
-          <div class="letter-sheet__heading">
-            <p class="scene__number">Hoja ${twoDigits(index + 1)} de ${twoDigits(content.scenes.length)}</p>
-            <p class="scene__kicker">${scene.kicker}</p>
-          </div>
-          <h2>${scene.title}</h2>
           <div class="letter-sheet__body">${paragraphs}</div>
           ${scene.signoff ? `<p class="letter-sheet__signoff">${scene.signoff}</p>` : ""}
         </div>
