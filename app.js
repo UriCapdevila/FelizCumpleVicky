@@ -2,7 +2,14 @@
   "use strict";
 
   const content = window.VICKY_CONTENT;
-  const previewMode = new URLSearchParams(window.location.search).get("preview") === "1";
+  const searchParams = new URLSearchParams(window.location.search);
+  const previewTarget = searchParams.get("preview");
+  const previewMode = previewTarget === "1" || previewTarget === "texts";
+  const directTextPreview = previewTarget === "texts";
+  const requestedScene = Number.parseInt(searchParams.get("scene") || "1", 10);
+  const previewScene = Number.isFinite(requestedScene)
+    ? Math.min(Math.max(requestedScene - 1, 0), content.scenes.length - 1)
+    : 0;
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   const gate = document.querySelector("#gate");
@@ -106,15 +113,18 @@
     });
   }
 
-  function showJourney() {
+  function showJourney(sceneIndex = 0, immediate = false) {
     gate.classList.add("is-leaving");
-    window.setTimeout(() => {
+    const revealJourney = () => {
       gate.classList.add("hidden");
       gifts.classList.add("hidden");
       journey.classList.remove("hidden");
-      showScene(0);
+      showScene(sceneIndex);
       document.body.classList.add("in-experience");
-    }, reduceMotion ? 0 : 650);
+    };
+
+    if (immediate || reduceMotion) revealJourney();
+    else window.setTimeout(revealJourney, 650);
   }
 
   function showGate() {
@@ -284,7 +294,7 @@
     draw();
   }
 
-  enterButton.addEventListener("click", showJourney);
+  enterButton.addEventListener("click", () => showJourney());
   exitButton.addEventListener("click", showGate);
   previousButton.addEventListener("click", () => showScene(activeScene - 1));
   nextButton.addEventListener("click", () => {
@@ -307,5 +317,6 @@
   addSceneParallax();
   initStarVoyage();
   updateCountdown();
+  if (directTextPreview) showJourney(previewScene, true);
   countdownTimer = window.setInterval(updateCountdown, 1000);
 })();
