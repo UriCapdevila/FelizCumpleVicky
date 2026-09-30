@@ -25,7 +25,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Marcellus&display=swap" rel="stylesheet" />
     <title>Para Vicky ✦ 9 de octubre</title>
-    <link rel="stylesheet" href="./styles.css?v=20260930c" />
+    <link rel="stylesheet" href="./styles.css?v=20260930d" />
   </head>
   <body>
     <div class="noise" aria-hidden="true"></div>
@@ -102,9 +102,15 @@
         <div class="scene-stage" id="scene-stage" aria-live="polite"></div>
 
         <footer class="journey__footer">
-          <button class="text-button" id="previous-button" type="button">← Atrás</button>
+          <button class="text-button" id="previous-button" type="button">
+            <span class="nav-arrow nav-arrow--back" aria-hidden="true">←</span>
+            <span class="nav-label">Portada</span>
+          </button>
           <div class="progress" id="progress" aria-label="Progreso de la historia"></div>
-          <button class="text-button text-button--next" id="next-button" type="button">Seguir <span>→</span></button>
+          <button class="text-button text-button--next" id="next-button" type="button">
+            <span class="nav-label">Seguir</span>
+            <span class="nav-arrow" aria-hidden="true">→</span>
+          </button>
         </footer>
       </section>
 
@@ -129,6 +135,6 @@
 
     <noscript>Esta experiencia necesita JavaScript activado para comenzar.</noscript>
     <script src="./content.js?v=20260930a"></script>
-    <script src="./app.js?v=20260930c"></script>
+    <script src="./app.js?v=20260930d"></script>
   </body>
 </html>

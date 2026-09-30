@@ -1456,7 +1456,7 @@ button:focus-visible {
   .scene__celestial { transform: none !important; }
 }
 
-/* Navegación flotante: un único control, sin barra inferior. */
+/* Navegación flotante: dos controles claros, sin recuperar la barra inferior. */
 .journey {
   grid-template-rows: minmax(0, 1fr);
 }
@@ -1467,13 +1467,16 @@ button:focus-visible {
 
 .journey__footer {
   position: absolute;
-  right: clamp(.85rem, 2.5vw, 1.8rem);
-  bottom: clamp(.85rem, 2.5vw, 1.6rem);
-  left: auto;
-  width: auto;
+  right: 0;
+  bottom: clamp(.75rem, 2vw, 1.35rem);
+  left: 0;
+  width: 100%;
   min-height: 0;
-  padding: 0;
-  display: block;
+  padding: 0 clamp(.75rem, 2.8vw, 1.8rem);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: .75rem;
   color: inherit;
   border: 0;
   background: transparent;
@@ -1482,64 +1485,93 @@ button:focus-visible {
   pointer-events: none;
 }
 
-#previous-button,
 .journey__footer .progress,
 .swipe-hint {
   display: none;
 }
 
+#previous-button,
 #next-button {
   position: relative;
-  width: 3.35rem;
-  height: 3.35rem;
+  width: auto;
+  height: 3.05rem;
   min-height: 0;
-  padding: 0;
-  display: grid;
+  padding: .72rem 1rem;
+  display: inline-flex;
+  align-items: center;
+  gap: .55rem;
   place-items: center;
   overflow: hidden;
-  color: transparent;
-  font-size: 0;
+  color: var(--rose-deep);
+  font-family: var(--sans);
+  font-size: .66rem;
+  font-weight: 700;
+  letter-spacing: .1em;
   line-height: 1;
-  border: 1px solid rgba(198, 155, 69, .58);
-  border-radius: 50%;
-  background: rgba(255, 253, 249, .9);
-  box-shadow: 0 .65rem 1.8rem rgba(141, 88, 101, .2), inset 0 1px rgba(255, 255, 255, .92);
+  text-align: center;
+  text-transform: uppercase;
+  border: 1px solid rgba(198, 155, 69, .45);
+  border-radius: 999px;
+  background: rgba(255, 253, 249, .94);
+  box-shadow: 0 .65rem 1.5rem rgba(141, 88, 101, .16), inset 0 1px rgba(255, 255, 255, .95);
   backdrop-filter: blur(12px);
   pointer-events: auto;
-  transition: transform .3s ease, color .3s ease, background .3s ease, box-shadow .3s ease;
+  transition: transform .25s ease, color .25s ease, background .25s ease, box-shadow .25s ease;
 }
 
+#previous-button::before,
 #next-button::before {
   content: "";
   position: absolute;
-  inset: .28rem;
+  inset: .2rem;
   border: 1px solid rgba(184, 121, 134, .22);
   border-radius: inherit;
+  pointer-events: none;
 }
 
-#next-button span {
+#next-button {
+  min-width: 7.3rem;
+  justify-content: center;
+  color: white;
+  border-color: rgba(141, 88, 101, .25);
+  background: linear-gradient(115deg, #c98594, #a96676);
+  box-shadow: 0 .72rem 1.6rem rgba(141, 88, 101, .24), inset 0 1px rgba(255,255,255,.28);
+}
+
+#next-button::before { border-color: rgba(255,255,255,.24); }
+
+.journey__footer .nav-label,
+.journey__footer .nav-arrow {
   position: relative;
   z-index: 1;
-  display: block;
-  color: var(--rose-deep);
-  font-family: var(--sans);
-  font-size: 1.08rem;
-  transform: translateX(0);
-  transition: transform .3s ease, color .3s ease;
+  display: inline-block;
+  margin: 0;
 }
 
+.journey__footer .nav-arrow {
+  font-size: .95rem;
+  transition: transform .25s ease;
+}
+
+.journey__footer .text-button:hover .nav-label { transform: none; }
+
+#previous-button:hover,
 #next-button:hover {
-  color: transparent;
-  background: var(--rose);
-  box-shadow: 0 .85rem 2.1rem rgba(141, 88, 101, .28);
   transform: translateY(-2px);
 }
 
-#next-button:hover span {
-  color: white;
-  transform: translateX(.13rem);
+#previous-button:hover {
+  color: var(--ink);
+  background: #fffdf9;
+  box-shadow: 0 .8rem 1.8rem rgba(141, 88, 101, .2), inset 0 1px white;
 }
 
+#next-button:hover { background: linear-gradient(115deg, #bd7485, #925565); }
+
+#previous-button:hover .nav-arrow { transform: translateX(-.14rem); }
+#next-button:hover .nav-arrow { transform: translateX(.14rem); }
+
+#previous-button:active,
 #next-button:active {
   transform: translateY(0) scale(.95);
 }
@@ -1549,9 +1581,20 @@ button:focus-visible {
 }
 
 @media (max-width: 30rem) {
+  .journey__footer {
+    bottom: max(.6rem, env(safe-area-inset-bottom));
+    padding-inline: .65rem;
+  }
+
+  #previous-button,
   #next-button {
-    width: 3.1rem;
-    height: 3.1rem;
+    height: 2.85rem;
+    padding-inline: .82rem;
+    font-size: .61rem;
+  }
+
+  #next-button {
+    min-width: 6.6rem;
   }
 }
 

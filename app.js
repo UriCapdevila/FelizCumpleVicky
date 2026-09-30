@@ -100,11 +100,21 @@
     stage.replaceChildren(renderScene(content.scenes[activeScene], activeScene));
     stage.scrollTop = 0;
     sceneKicker.textContent = content.scenes[activeScene].kicker;
-    previousButton.disabled = activeScene === 0;
-    nextButton.innerHTML = activeScene === content.scenes.length - 1 ? "Ver mis regalos <span>→</span>" : "Seguir <span>→</span>";
+    const isFirstScene = activeScene === 0;
+    const isLastScene = activeScene === content.scenes.length - 1;
+    previousButton.disabled = false;
+    previousButton.innerHTML = `
+      <span class="nav-arrow nav-arrow--back" aria-hidden="true">←</span>
+      <span class="nav-label">${isFirstScene ? "Portada" : "Volver"}</span>
+    `;
+    previousButton.setAttribute("aria-label", isFirstScene ? "Volver a la portada" : "Volver a la hoja anterior");
+    nextButton.innerHTML = `
+      <span class="nav-label">${isLastScene ? "Ver mis regalos" : "Seguir"}</span>
+      <span class="nav-arrow" aria-hidden="true">→</span>
+    `;
     nextButton.setAttribute(
       "aria-label",
-      activeScene === content.scenes.length - 1 ? "Ver mis regalos" : "Siguiente escena",
+      isLastScene ? "Ver mis regalos" : "Siguiente hoja",
     );
 
     [...progress.children].forEach((dot, index) => {
@@ -296,7 +306,10 @@
 
   enterButton.addEventListener("click", () => showJourney());
   exitButton.addEventListener("click", showGate);
-  previousButton.addEventListener("click", () => showScene(activeScene - 1));
+  previousButton.addEventListener("click", () => {
+    if (activeScene === 0) showGate();
+    else showScene(activeScene - 1);
+  });
   nextButton.addEventListener("click", () => {
     if (activeScene === content.scenes.length - 1) showGifts();
     else showScene(activeScene + 1);
