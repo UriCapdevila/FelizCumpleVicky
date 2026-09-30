@@ -21,9 +21,7 @@
   const enterButton = document.querySelector("#enter-button");
   const nextButton = document.querySelector("#next-button");
   const previousButton = document.querySelector("#previous-button");
-  const exitButton = document.querySelector("#exit-button");
   const restartButton = document.querySelector("#restart-button");
-  const sceneKicker = document.querySelector("#scene-kicker");
   const previewBadge = document.querySelector("#preview-badge");
   const envelope = document.querySelector("#envelope-countdown");
 
@@ -100,7 +98,6 @@
     activeScene = Math.min(Math.max(index, 0), content.scenes.length - 1);
     stage.replaceChildren(renderScene(content.scenes[activeScene], activeScene));
     stage.scrollTop = 0;
-    sceneKicker.textContent = content.scenes[activeScene].kicker;
     const isFirstScene = activeScene === 0;
     const isLastScene = activeScene === content.scenes.length - 1;
     previousButton.disabled = false;
@@ -310,7 +307,6 @@
   }
 
   enterButton.addEventListener("click", () => showJourney());
-  exitButton.addEventListener("click", showGate);
   previousButton.addEventListener("click", () => {
     if (activeScene === 0) showGate();
     else showScene(activeScene - 1);

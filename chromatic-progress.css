@@ -7,6 +7,7 @@
 
 .scene.scene--letter {
   isolation: isolate;
+  padding-top: clamp(0.75rem, 2.2vw, 1.5rem);
   transition: background 800ms ease, color 500ms ease;
 }
 
@@ -195,6 +196,10 @@
 }
 
 @media (max-width: 740px) {
+  .scene.scene--letter {
+    padding-top: max(0.45rem, env(safe-area-inset-top));
+  }
+
   .scene.scene--kitty-letter,
   .scene.scene--one-piece-letter,
   .scene.scene--plans-letter {
