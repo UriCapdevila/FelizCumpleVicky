@@ -1247,6 +1247,42 @@ button:focus-visible {
 .closing__spark { color: var(--gold); }
 .closing p { color: var(--ink); }
 
+.closing__thanks {
+  width: min(100%, 28rem);
+  margin: clamp(1.5rem, 4vw, 2.25rem) auto 0;
+  padding-top: clamp(1.15rem, 3vw, 1.7rem);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(.8rem, 3vw, 1.4rem);
+  border-top: 1px solid rgba(198, 155, 69, .24);
+}
+
+.closing__thanks img {
+  width: clamp(5.2rem, 13vw, 7.5rem);
+  height: auto;
+  flex: 0 0 auto;
+  filter: drop-shadow(0 .6rem .8rem rgba(141, 88, 101, .14));
+}
+
+.closing__thanks-copy {
+  color: var(--rose-deep);
+  font-family: var(--serif);
+  font-size: clamp(1.45rem, 4vw, 2.15rem);
+  line-height: 1.05;
+  text-wrap: balance;
+}
+
+@media (max-width: 30rem) {
+  .closing__thanks {
+    flex-direction: column;
+    gap: .35rem;
+  }
+
+  .closing__thanks img { width: clamp(5.5rem, 28vw, 7rem); }
+  .closing__thanks-copy { font-size: clamp(1.4rem, 7vw, 1.85rem); }
+}
+
 .gifts__restart {
   display: block;
   margin: 2rem auto 0;

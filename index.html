@@ -21,11 +21,12 @@
     />
     <link rel="preload" as="image" href="./assets/letter-kawaii-overlay.png" />
     <link rel="preload" as="image" href="./assets/envelope-kitty-strawberry.png" />
+    <link rel="preload" as="image" href="./assets/my-melody-thanks-sticker.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Marcellus&display=swap" rel="stylesheet" />
     <title>Para Vicky ✦ 9 de octubre</title>
-    <link rel="stylesheet" href="./styles.css?v=20260930e" />
+    <link rel="stylesheet" href="./styles.css?v=20260930f" />
   </head>
   <body>
     <div class="noise" aria-hidden="true"></div>
@@ -124,9 +125,13 @@
 
         <div class="gift-grid" id="gift-grid"></div>
 
-        <div class="closing hidden" id="closing" aria-live="polite">
+        <div class="closing" id="closing" aria-live="polite">
           <span class="closing__spark">✦</span>
           <p id="closing-message"></p>
+          <div class="closing__thanks">
+            <img src="./assets/my-melody-thanks-sticker.png" alt="" aria-hidden="true" />
+            <span class="closing__thanks-copy">Gracias por existir</span>
+          </div>
         </div>
 
         <button class="text-button gifts__restart" id="restart-button" type="button">Volver a vivirlo ↺</button>
@@ -135,6 +140,6 @@
 
     <noscript>Esta experiencia necesita JavaScript activado para comenzar.</noscript>
     <script src="./content.js?v=20260930a"></script>
-    <script src="./app.js?v=20260930d"></script>
+    <script src="./app.js?v=20260930f"></script>
   </body>
 </html>

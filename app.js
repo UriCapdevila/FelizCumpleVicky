@@ -6,6 +6,7 @@
   const previewTarget = searchParams.get("preview");
   const previewMode = searchParams.has("preview");
   const directTextPreview = previewTarget === "texts";
+  const directGiftPreview = previewTarget === "gifts";
   const requestedScene = Number.parseInt(searchParams.get("scene") || "1", 10);
   const previewScene = Number.isFinite(requestedScene)
     ? Math.min(Math.max(requestedScene - 1, 0), content.scenes.length - 1)
@@ -24,12 +25,10 @@
   const restartButton = document.querySelector("#restart-button");
   const sceneKicker = document.querySelector("#scene-kicker");
   const previewBadge = document.querySelector("#preview-badge");
-  const closing = document.querySelector("#closing");
   const envelope = document.querySelector("#envelope-countdown");
 
   let activeScene = 0;
   let countdownTimer;
-  const openedGifts = new Set();
 
   const twoDigits = (number) => String(Math.max(0, number)).padStart(2, "0");
 
@@ -148,7 +147,7 @@
     const grid = document.querySelector("#gift-grid");
     grid.replaceChildren();
 
-    content.gifts.forEach((gift, index) => {
+    content.gifts.forEach((gift) => {
       const card = document.createElement("button");
       card.type = "button";
       card.className = "gift-card";
@@ -176,8 +175,6 @@
         const opening = !card.classList.contains("is-open");
         card.classList.toggle("is-open", opening);
         card.setAttribute("aria-expanded", String(opening));
-        if (opening) openedGifts.add(index);
-        if (openedGifts.size === content.gifts.length) closing.classList.remove("hidden");
       });
       grid.append(card);
     });
@@ -193,9 +190,15 @@
     }, reduceMotion ? 0 : 500);
   }
 
+  function showGiftsImmediately() {
+    gate.classList.add("hidden");
+    journey.classList.add("hidden");
+    gifts.classList.remove("hidden");
+    gifts.scrollTop = 0;
+    document.body.classList.add("in-experience");
+  }
+
   function restartExperience() {
-    openedGifts.clear();
-    closing.classList.add("hidden");
     document.querySelectorAll(".gift-card").forEach((card) => {
       card.classList.remove("is-open");
       card.setAttribute("aria-expanded", "false");
@@ -330,6 +333,7 @@
   addSceneParallax();
   initStarVoyage();
   updateCountdown();
-  if (directTextPreview) showJourney(previewScene, true);
+  if (directGiftPreview) showGiftsImmediately();
+  else if (directTextPreview) showJourney(previewScene, true);
   countdownTimer = window.setInterval(updateCountdown, 1000);
 })();
