@@ -2289,3 +2289,253 @@ button:focus-visible {
   .envelope-countdown.is-open .envelope__countdown-panel { opacity: 0; }
   .envelope-countdown.is-open .primary-button { opacity: 1; }
 }
+
+/* Papelería kawaii: una misma historia visual desde la espera hasta la carta. */
+.gate {
+  color: #654552;
+  background:
+    linear-gradient(180deg, rgba(255, 253, 249, .1), rgba(250, 226, 231, .08)),
+    url("./assets/waiting-kawaii-background.png") center / cover no-repeat,
+    #f7e5e8;
+}
+
+.gate::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at center, rgba(255, 253, 249, .78) 0 20%, rgba(255, 250, 247, .38) 48%, transparent 72%),
+    linear-gradient(180deg, rgba(255,255,255,.1), rgba(229,183,186,.08));
+}
+
+#star-voyage {
+  opacity: .25;
+  mix-blend-mode: soft-light;
+}
+
+.star-field {
+  opacity: .2;
+  mix-blend-mode: screen;
+  background-image:
+    radial-gradient(circle, rgba(255, 255, 255, .94) 0 1px, transparent 1.8px),
+    radial-gradient(circle, rgba(215, 172, 91, .58) 0 1px, transparent 1.7px),
+    radial-gradient(circle, rgba(196, 132, 145, .52) 0 1.2px, transparent 1.9px);
+}
+
+.gate__halo {
+  opacity: .55;
+  border-color: rgba(198, 155, 69, .22);
+  box-shadow:
+    0 0 0 clamp(1.75rem, 6vw, 4.75rem) rgba(255, 255, 255, .08),
+    0 0 0 clamp(3.5rem, 11vw, 8.5rem) rgba(184, 121, 134, .035),
+    inset 0 0 6rem rgba(255, 253, 249, .24);
+}
+
+.shooting-stars i {
+  background: linear-gradient(90deg, transparent, rgba(184, 121, 134, .68), rgba(255,255,255,.92));
+  filter: drop-shadow(0 0 5px rgba(255, 255, 255, .85));
+}
+
+.gate .eyebrow { color: #9f6673; }
+
+.gate h1 {
+  color: #684653;
+  text-shadow: 0 .08em .5em rgba(255, 255, 255, .98), 0 .18em 1.2em rgba(141, 88, 101, .13);
+}
+
+.gate__intro {
+  color: #765965;
+  text-shadow: 0 1px rgba(255,255,255,.92), 0 0 1.1rem rgba(255,253,249,.88);
+}
+
+.signature { color: rgba(112, 75, 89, .66); }
+
+.gate.is-unlocked .preview-badge {
+  color: #8d5865;
+  border-color: rgba(184,121,134,.28);
+  background: rgba(255,253,249,.68);
+}
+
+.letter-sheet__content {
+  overflow: hidden;
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      transparent 0,
+      transparent calc(1.95rem - 1px),
+      rgba(184, 121, 134, .12) calc(1.95rem - 1px),
+      rgba(184, 121, 134, .12) 1.95rem
+    ),
+    linear-gradient(145deg, rgba(255, 253, 247, .86), rgba(255, 249, 239, .79));
+  box-shadow: 0 1.2rem 3.8rem rgba(141, 88, 101, .09), inset 0 1px rgba(255,255,255,.88);
+}
+
+.letter-sheet__content::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: .28;
+  background-image:
+    url("./assets/letter-kawaii-overlay.png"),
+    url("./assets/letter-kawaii-overlay.png");
+  background-position: center top, center bottom;
+  background-size: 100% auto, 100% auto;
+  background-repeat: no-repeat;
+}
+
+.letter-sheet__content > * {
+  position: relative;
+  z-index: 1;
+}
+
+.scene--one-piece-letter .letter-sheet__content,
+.scene--plans-letter .letter-sheet__content {
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      transparent 0,
+      transparent calc(1.95rem - 1px),
+      rgba(184, 121, 134, .11) calc(1.95rem - 1px),
+      rgba(184, 121, 134, .11) 1.95rem
+    ),
+    linear-gradient(145deg, rgba(255, 253, 247, .84), rgba(255, 249, 239, .76));
+}
+
+.envelope-countdown {
+  filter: drop-shadow(0 1.5rem 2.3rem rgba(141, 88, 101, .2));
+}
+
+.envelope__back {
+  border-color: rgba(198, 155, 69, .38);
+  background:
+    radial-gradient(circle at 50% 0, rgba(255,255,255,.9), transparent 54%),
+    linear-gradient(145deg, #ffdfe2, #eeb8c1 58%, #d999a6);
+}
+
+.envelope__flap {
+  background:
+    linear-gradient(155deg, rgba(255,255,255,.52), transparent 42%),
+    linear-gradient(145deg, #ffe8e8, #f2bec6 62%, #dfa2ae);
+}
+
+.envelope__pocket {
+  border-color: rgba(198, 155, 69, .34);
+  background:
+    linear-gradient(35deg, transparent 49.5%, rgba(198,155,69,.14) 50%, transparent 50.5%) left / 50% 100% no-repeat,
+    linear-gradient(-35deg, transparent 49.5%, rgba(198,155,69,.14) 50%, transparent 50.5%) right / 50% 100% no-repeat,
+    linear-gradient(145deg, #f9ced3, #e8aeb9 62%, #cf8796);
+}
+
+.envelope__print {
+  position: absolute;
+  z-index: 6;
+  left: 4.5%;
+  bottom: .95rem;
+  width: 33%;
+  height: clamp(9.45rem, 20.5vh, 10.75rem);
+  object-fit: cover;
+  object-position: left center;
+  opacity: .82;
+  pointer-events: none;
+  filter: saturate(.82) contrast(.96);
+  clip-path: inset(0 round .55rem);
+}
+
+.envelope__countdown-panel {
+  z-index: 7;
+  left: 37%;
+  right: 6%;
+  color: #684653;
+  border-color: rgba(198, 155, 69, .22);
+  background: rgba(255, 253, 249, .9);
+  box-shadow: 0 .65rem 1.5rem rgba(141, 88, 101, .13), inset 0 1px white;
+}
+
+.envelope__seal {
+  z-index: 8;
+  color: #fffdf9;
+  border-color: rgba(255, 255, 255, .78);
+  background: linear-gradient(145deg, #d996a4, #aa6675);
+  box-shadow: 0 .55rem 1.15rem rgba(141, 88, 101, .25), inset 0 1px rgba(255,255,255,.48);
+}
+
+.envelope-countdown.is-open .envelope__print {
+  animation: envelopePrintAway .45s ease .22s forwards;
+}
+
+@keyframes envelopePrintAway {
+  to { opacity: .18; transform: translateY(.35rem); }
+}
+
+@media (max-width: 55.99rem) {
+  .letter-sheet__content {
+    background:
+      repeating-linear-gradient(
+        to bottom,
+        transparent 0,
+        transparent calc(1.83rem - 1px),
+        rgba(184, 121, 134, .1) calc(1.83rem - 1px),
+        rgba(184, 121, 134, .1) 1.83rem
+      ),
+      linear-gradient(145deg, rgba(255, 253, 247, .88), rgba(255, 249, 239, .82));
+  }
+}
+
+@media (max-width: 48rem) {
+  .gate {
+    background-image:
+      linear-gradient(180deg, rgba(255, 253, 249, .08), rgba(250, 226, 231, .06)),
+      url("./assets/waiting-kawaii-background-mobile.png");
+    background-position: center;
+    background-size: cover;
+  }
+}
+
+@media (max-width: 32rem) {
+  .gate {
+    background-position: center;
+  }
+
+  .gate::after {
+    background: radial-gradient(ellipse at center, rgba(255, 253, 249, .86) 0 24%, rgba(255, 250, 247, .46) 58%, transparent 88%);
+  }
+
+  .envelope__print {
+    left: 2%;
+    width: 34%;
+    opacity: .76;
+  }
+
+  .envelope__countdown-panel {
+    left: 35%;
+    right: 3.5%;
+    padding-inline: .35rem;
+  }
+
+  .envelope-countdown .countdown {
+    gap: clamp(.08rem, 1vw, .28rem);
+  }
+
+  .envelope-countdown .countdown__unit strong {
+    font-size: clamp(1.12rem, 5.4vw, 1.62rem);
+  }
+
+  .envelope-countdown .countdown__unit span {
+    font-size: .43rem;
+    letter-spacing: .08em;
+  }
+
+  .envelope-countdown .date-lock {
+    font-size: .5rem;
+    letter-spacing: .07em;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .envelope__print { animation: none !important; }
+  .envelope-countdown.is-open .envelope__print { opacity: .18; }
+}
