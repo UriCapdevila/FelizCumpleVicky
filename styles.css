@@ -2692,3 +2692,240 @@ button:focus-visible {
   .envelope__print { animation: none !important; }
   .envelope-countdown.is-open .envelope__print { opacity: .18; }
 }
+
+/* Seguridad responsive para iPhone: notch, barras del navegador y poca altura útil. */
+@supports (height: 100dvh) {
+  .gate,
+  .journey,
+  .gifts { min-height: 100dvh; }
+}
+
+@media (max-width: 48rem) {
+  .gate {
+    overflow-x: hidden;
+    overflow-y: auto;
+    overscroll-behavior-y: contain;
+    padding-top: max(1.25rem, env(safe-area-inset-top));
+    padding-right: max(.75rem, env(safe-area-inset-right));
+    padding-bottom: max(1rem, env(safe-area-inset-bottom));
+    padding-left: max(.75rem, env(safe-area-inset-left));
+  }
+
+  .gate__content {
+    width: min(100%, 30rem);
+    margin: auto;
+  }
+
+  .journey__header {
+    padding-top: max(1rem, env(safe-area-inset-top));
+    padding-right: max(.8rem, env(safe-area-inset-right));
+    padding-left: max(.8rem, env(safe-area-inset-left));
+  }
+
+  .journey__footer {
+    padding-right: max(.75rem, env(safe-area-inset-right));
+    padding-left: max(.75rem, env(safe-area-inset-left));
+  }
+
+  .gifts {
+    padding-right: max(1rem, env(safe-area-inset-right));
+    padding-left: max(1rem, env(safe-area-inset-left));
+  }
+}
+
+@media (max-width: 30rem) {
+  .gate h1 {
+    margin: .65rem 0 .5rem;
+    font-size: clamp(2rem, 10.8vw, 3.15rem);
+    line-height: .98;
+  }
+
+  .gate__intro {
+    margin-bottom: .85rem;
+    font-size: .9rem;
+    line-height: 1.45;
+  }
+
+  .gate.is-unlocked .gate__intro {
+    height: 0;
+    margin: 0;
+    overflow: hidden;
+    visibility: hidden;
+  }
+
+  .envelope-countdown {
+    width: 100%;
+  }
+
+  .envelope__letter .primary-button {
+    width: min(100%, 12rem);
+    min-width: 0;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .scene.scene--letter {
+    padding-right: max(.5rem, env(safe-area-inset-right));
+    padding-left: max(.5rem, env(safe-area-inset-left));
+  }
+
+  .letter-sheet__body {
+    overflow-wrap: anywhere;
+    hyphens: auto;
+  }
+}
+
+/* iPhone SE y previews con barras visibles: compacta sin recortar la carta abierta. */
+@media (max-width: 30rem) and (max-height: 43rem) {
+  .gate {
+    place-items: start center;
+    padding-top: max(.7rem, env(safe-area-inset-top));
+    padding-bottom: max(.7rem, env(safe-area-inset-bottom));
+  }
+
+  .gate__content {
+    margin: 0 auto;
+  }
+
+  .gate .eyebrow {
+    font-size: .63rem;
+    letter-spacing: .17em;
+  }
+
+  .gate h1 {
+    margin: .4rem 0 .3rem;
+    font-size: clamp(1.85rem, 10vw, 2.65rem);
+    line-height: .96;
+  }
+
+  .gate__intro {
+    margin-bottom: .4rem;
+    font-size: .78rem;
+    line-height: 1.35;
+  }
+
+  .envelope-countdown {
+    height: 15rem;
+    margin-top: .15rem;
+  }
+
+  .envelope__back,
+  .envelope__pocket {
+    height: 9.2rem;
+    bottom: .45rem;
+  }
+
+  .envelope__flap {
+    height: 8.95rem;
+    bottom: .45rem;
+  }
+
+  .envelope__letter {
+    left: 5%;
+    right: 5%;
+    bottom: .85rem;
+    height: 8.85rem;
+    padding: .78rem .8rem;
+  }
+
+  .envelope__letter-date { font-size: .5rem; }
+
+  .envelope__letter > strong {
+    margin-top: .22rem;
+    font-size: clamp(1.08rem, 5.8vw, 1.3rem);
+    line-height: 1;
+  }
+
+  .envelope__letter .primary-button {
+    min-height: 2.45rem;
+    margin-top: .48rem;
+    padding: .45rem .48rem .45rem .85rem;
+    font-size: .66rem;
+  }
+
+  .envelope__letter .button-arrow {
+    width: 1.7rem;
+    height: 1.7rem;
+  }
+
+  .envelope__seal {
+    bottom: 8rem;
+    width: 2.25rem;
+  }
+
+  .envelope__print {
+    left: 4%;
+    bottom: .75rem;
+    width: 5.4rem;
+  }
+
+  .envelope__countdown-panel {
+    left: 34%;
+    right: 2.5%;
+    bottom: .72rem;
+    padding: .34rem .28rem .42rem;
+  }
+
+  .envelope-countdown .countdown__unit strong {
+    font-size: clamp(1rem, 5.2vw, 1.35rem);
+  }
+
+  .envelope-countdown .countdown__unit span {
+    margin-top: .18rem;
+    font-size: .4rem;
+  }
+
+  .envelope-countdown .date-lock {
+    margin-top: .32rem;
+    font-size: .45rem;
+  }
+
+  .envelope-countdown.is-open .envelope__letter {
+    animation-name: envelopeLetterOutPhone;
+  }
+
+  .preview-badge,
+  .signature { display: none !important; }
+}
+
+@media (max-width: 22rem) {
+  .gate {
+    padding-right: max(.45rem, env(safe-area-inset-right));
+    padding-left: max(.45rem, env(safe-area-inset-left));
+  }
+
+  .gate h1 { font-size: clamp(1.72rem, 9.8vw, 2.15rem); }
+
+  .envelope__letter .primary-button {
+    width: min(100%, 10.75rem);
+    padding-left: .72rem;
+    font-size: .61rem;
+  }
+
+  #previous-button,
+  #next-button {
+    padding-inline: .68rem;
+    font-size: .56rem;
+  }
+
+  #next-button { min-width: 6rem; }
+
+  .letter-sheet__content {
+    width: calc(100% - .8rem);
+    padding-inline: .9rem;
+  }
+
+  .letter-sheet__body { font-size: .93rem; }
+}
+
+@keyframes envelopeLetterOutPhone {
+  0% { transform: translateY(0); }
+  58% { transform: translateY(-5.55rem); }
+  100% { transform: translateY(-5.25rem); opacity: 1; }
+}
+
+@media (max-width: 30rem) and (max-height: 43rem) and (prefers-reduced-motion: reduce) {
+  .envelope-countdown.is-open .envelope__letter {
+    transform: translateY(-5.25rem);
+  }
+}
