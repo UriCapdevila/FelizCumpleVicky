@@ -22,7 +22,7 @@ window.VICKY_CONTENT = {
       title: "Tu presencia hace más hermoso el mundo.",
       paragraphs: [
         "Si hay algo que este tiempo me dejó en claro, más allá de cualquier circunstancia o de los caminos que nos tocó caminar, es lo genuinamente valiosa que es tu presencia en este mundo.",
-        "Tu sensibilidad, la profundidad con la que tenes en cada detalle y esa chispa tuya tienen la magia de transformar los días simples en algo inolvidables, y quizá vos a veces ni lo notas pero... una persona como vos simplemente hace que el entorno sea un lugar más cálido y te hace sentir seguro y también escuchado; y vos sos esa persona que deja una huella que es imposible de olvidar.",
+        "Tu sensibilidad, la profundidad con la que vivís cada detalle y esa chispa unica que es solamente tuya tienen la magia de transformar los días simples en momentos inolvidables. Quizá vos no siempre lo notás, pero tu presencia hace que todo se sienta más cálido. Tenés una forma muy especial de hacer que quienes estamos cerca tuyo nos sintamos seguros y escuchados. Sos de esas personas que dejan una huella imposible de olvidar.",
         "Admiro mucho tu fortaleza... y no digo que seas perfecta, yo no voy a idealizar nada, a veces no sabes que decir u ocultas lo que sentís por miedo. También puede pasar que sobrepensas mucho todo pero yo no busco que seas perfecta, porque para mi sos increíble con tu constante crecimiento, con tus aciertos y con tus errores. Es hermoso tenerte cerca Vicky.",
         "Tu existencia merece ser celebrada con todo el amor del mundo, es infinita la cantidad de amor que mereces. Hoy y cada día de tu vida.",
       ],
