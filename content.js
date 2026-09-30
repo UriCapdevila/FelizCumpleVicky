@@ -26,7 +26,7 @@ window.VICKY_CONTENT = {
         "Admiro tanto tu fortaleza... Y no digo que seas perfecta; yo no voy a idealizar nada. A veces no sabés qué decir u ocultás lo que sentís por miedo. También puede pasar que sobrepensás mucho todo, pero yo no busco que seas perfecta, porque para mí sos increíble tal y como sos. Es hermoso tenerte cerca, Vicky.",
         "Tu existencia merece ser celebrada con todo el amor del mundo; es infinita la cantidad de amor que merecés. Hoy y cada día de tu vida.",
       ],
-      stickers: "./assets/stickers-one-piece-letter-v3.png",
+      stickers: "./assets/stickers-one-piece-letter-v4.png",
       theme: "one-piece-letter",
     },
     {
@@ -63,7 +63,7 @@ window.VICKY_CONTENT = {
       number: "03",
       symbol: "✦",
       title: "Una tarde de shopping juntos",
-      short: "Glamour, estilo y muchos mimos",
+      short: "Glamour, estilo y mucho mas",
       why: "Para que reconectes de lleno con ese glamour, el estilo y la estética que tanto te apasionan. Tu presencia ilumina cualquier lugar por donde caminás; tenés la magia de convertir algo casual en un momento maravilloso, y mi único deseo es acompañarte, mimarte y hacerte sentir la estrella que sos.",
       detail: "",
     },
