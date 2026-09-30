@@ -2406,57 +2406,98 @@ button:focus-visible {
 }
 
 .envelope-countdown {
+  width: min(100%, 34rem);
+  height: clamp(19.75rem, 43vh, 22rem);
   filter: drop-shadow(0 1.5rem 2.3rem rgba(141, 88, 101, .2));
+}
+
+.envelope__back,
+.envelope__flap,
+.envelope__pocket {
+  left: 2%;
+  right: 2%;
+  bottom: 1.1rem;
+  height: clamp(12.25rem, 26vh, 13.5rem);
+  border-radius: 1rem;
 }
 
 .envelope__back {
   border-color: rgba(198, 155, 69, .38);
   background:
-    radial-gradient(circle at 50% 0, rgba(255,255,255,.9), transparent 54%),
-    linear-gradient(145deg, #ffdfe2, #eeb8c1 58%, #d999a6);
+    radial-gradient(circle at 50% -12%, rgba(255,255,255,.96), transparent 58%),
+    linear-gradient(145deg, #ffe6e7, #f1bcc4 58%, #d995a3);
+  box-shadow:
+    inset 0 0 0 .35rem rgba(255,255,255,.18),
+    inset 0 1px rgba(255,255,255,.78);
 }
 
 .envelope__flap {
+  height: clamp(11.7rem, 25vh, 13rem);
+  border-radius: 1rem 1rem 0 0;
   background:
-    linear-gradient(155deg, rgba(255,255,255,.52), transparent 42%),
-    linear-gradient(145deg, #ffe8e8, #f2bec6 62%, #dfa2ae);
+    linear-gradient(155deg, rgba(255,255,255,.66), transparent 43%),
+    linear-gradient(145deg, #fff0ee, #f3c3ca 61%, #dfa0ad);
+  clip-path: polygon(0 0, 100% 0, 50% 69%);
+  box-shadow: 0 .4rem .8rem rgba(141,88,101,.12);
 }
 
 .envelope__pocket {
   border-color: rgba(198, 155, 69, .34);
   background:
-    linear-gradient(35deg, transparent 49.5%, rgba(198,155,69,.14) 50%, transparent 50.5%) left / 50% 100% no-repeat,
-    linear-gradient(-35deg, transparent 49.5%, rgba(198,155,69,.14) 50%, transparent 50.5%) right / 50% 100% no-repeat,
-    linear-gradient(145deg, #f9ced3, #e8aeb9 62%, #cf8796);
+    linear-gradient(32deg, transparent 49.4%, rgba(255,255,255,.32) 49.8%, rgba(198,155,69,.15) 50.2%, transparent 50.6%) left / 50% 100% no-repeat,
+    linear-gradient(-32deg, transparent 49.4%, rgba(255,255,255,.32) 49.8%, rgba(198,155,69,.15) 50.2%, transparent 50.6%) right / 50% 100% no-repeat,
+    radial-gradient(circle at 16% 84%, rgba(255,255,255,.22), transparent 24%),
+    linear-gradient(145deg, #fbd4d8, #e9aeba 62%, #cf8796);
+  clip-path: polygon(0 7%, 50% 48%, 100% 7%, 100% 100%, 0 100%);
+  box-shadow: inset 0 -1.5rem 3rem rgba(141,88,101,.1), inset 0 1px rgba(255,255,255,.5);
+}
+
+.envelope__letter {
+  left: 7%;
+  right: 7%;
+  bottom: 1.85rem;
+  height: clamp(11.8rem, 25vh, 12.9rem);
+  padding: 1.15rem 1.25rem;
+  border-radius: .75rem .75rem .3rem .3rem;
+  background:
+    radial-gradient(circle at 83% 17%, rgba(229,183,186,.3), transparent 28%),
+    repeating-linear-gradient(to bottom, transparent 0, transparent 1.55rem, rgba(184,121,134,.08) 1.55rem, rgba(184,121,134,.08) calc(1.55rem + 1px)),
+    linear-gradient(145deg, #fffefd, #fff7ef);
 }
 
 .envelope__print {
   position: absolute;
   z-index: 6;
-  left: 4.5%;
-  bottom: .95rem;
-  width: 33%;
-  height: clamp(9.45rem, 20.5vh, 10.75rem);
-  object-fit: cover;
-  object-position: left center;
-  opacity: .82;
+  left: 5.5%;
+  bottom: 1.5rem;
+  width: clamp(6.9rem, 27%, 8.75rem);
+  height: auto;
+  object-fit: contain;
+  opacity: .96;
   pointer-events: none;
-  filter: saturate(.82) contrast(.96);
-  clip-path: inset(0 round .55rem);
+  filter: drop-shadow(0 .45rem .6rem rgba(141,88,101,.2));
 }
 
 .envelope__countdown-panel {
   z-index: 7;
-  left: 37%;
-  right: 6%;
+  left: 35%;
+  right: 5%;
+  bottom: 1.5rem;
+  padding: .68rem .8rem .72rem;
   color: #684653;
-  border-color: rgba(198, 155, 69, .22);
-  background: rgba(255, 253, 249, .9);
-  box-shadow: 0 .65rem 1.5rem rgba(141, 88, 101, .13), inset 0 1px white;
+  border-color: rgba(198, 155, 69, .27);
+  border-radius: .9rem;
+  background:
+    linear-gradient(145deg, rgba(255,255,255,.94), rgba(255,249,244,.9));
+  box-shadow:
+    0 .7rem 1.45rem rgba(141, 88, 101, .14),
+    inset 0 0 0 .2rem rgba(255,255,255,.36),
+    inset 0 1px white;
 }
 
 .envelope__seal {
   z-index: 8;
+  bottom: clamp(11.2rem, 24vh, 12.35rem);
   color: #fffdf9;
   border-color: rgba(255, 255, 255, .78);
   background: linear-gradient(145deg, #d996a4, #aa6675);
@@ -2505,15 +2546,17 @@ button:focus-visible {
   }
 
   .envelope__print {
-    left: 2%;
-    width: 34%;
-    opacity: .76;
+    left: 4%;
+    bottom: 1.35rem;
+    width: 6.7rem;
+    opacity: .96;
   }
 
   .envelope__countdown-panel {
-    left: 35%;
-    right: 3.5%;
-    padding-inline: .35rem;
+    left: 36%;
+    right: 3%;
+    bottom: 1.35rem;
+    padding: .55rem .35rem .62rem;
   }
 
   .envelope-countdown .countdown {
@@ -2532,6 +2575,73 @@ button:focus-visible {
   .envelope-countdown .date-lock {
     font-size: .5rem;
     letter-spacing: .07em;
+  }
+
+  .envelope-countdown {
+    height: 19.25rem;
+  }
+
+  .envelope__back,
+  .envelope__pocket {
+    height: 11.8rem;
+    bottom: 1rem;
+  }
+
+  .envelope__flap {
+    height: 11.45rem;
+    bottom: 1rem;
+  }
+
+  .envelope__letter {
+    left: 5%;
+    right: 5%;
+    bottom: 1.7rem;
+    height: 11.35rem;
+  }
+
+  .envelope__seal {
+    bottom: 10.55rem;
+    width: 2.55rem;
+  }
+}
+
+@media (max-height: 40rem) and (min-width: 48rem) {
+  .envelope-countdown {
+    width: min(100%, 29rem);
+    height: 16.25rem;
+  }
+
+  .envelope__back,
+  .envelope__pocket {
+    height: 10.3rem;
+    bottom: .5rem;
+  }
+
+  .envelope__flap {
+    height: 9.95rem;
+    bottom: .5rem;
+  }
+
+  .envelope__letter {
+    height: 9.8rem;
+    bottom: 1rem;
+  }
+
+  .envelope__print {
+    left: 5%;
+    bottom: .95rem;
+    width: 6.7rem;
+  }
+
+  .envelope__countdown-panel {
+    left: 35%;
+    right: 4%;
+    bottom: .95rem;
+    padding-block: .42rem .5rem;
+  }
+
+  .envelope__seal {
+    bottom: 8.95rem;
   }
 }
 
