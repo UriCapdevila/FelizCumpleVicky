@@ -81,7 +81,9 @@
     article.innerHTML = `
       <div class="letter-desk" aria-hidden="true"><i>✦</i><i>♡</i><i>✦</i></div>
       <section class="letter-sheet" aria-label="${scene.title}">
-        <img class="letter-sheet__stickers" src="${scene.stickers}" alt="" />
+        <img class="letter-sheet__stickers letter-sheet__stickers--full" src="${scene.stickers}" alt="" />
+        <img class="letter-sheet__stickers letter-sheet__stickers--mobile letter-sheet__stickers--mobile-top" src="${scene.stickers}" alt="" />
+        <img class="letter-sheet__stickers letter-sheet__stickers--mobile letter-sheet__stickers--mobile-bottom" src="${scene.stickers}" alt="" />
         <span class="letter-sheet__tape letter-sheet__tape--left" aria-hidden="true"></span>
         <span class="letter-sheet__tape letter-sheet__tape--right" aria-hidden="true"></span>
         <div class="letter-sheet__content">

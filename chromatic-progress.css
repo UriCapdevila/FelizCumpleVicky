@@ -16,6 +16,10 @@
   transition: background 800ms ease, border-color 800ms ease, opacity 800ms ease;
 }
 
+.letter-sheet__stickers--mobile {
+  display: none;
+}
+
 /* Hoja 1: retoma el rosa nube, celeste empolvado y marfil de la portada. */
 .scene.scene--kitty-letter {
   background:
@@ -203,6 +207,40 @@
     box-shadow:
       0 18px 38px rgba(133, 82, 96, 0.16),
       0 1px 0 rgba(255, 255, 255, 0.86) inset;
+  }
+
+  /*
+   * El papel crece con el texto, pero el marco raster tiene proporcion 2:3.
+   * En mobile usamos dos recortes del mismo recurso para mantener personajes
+   * y adornos proporcionados, anclados arriba y abajo, sin estirarlos.
+   */
+  .letter-sheet__stickers--full {
+    display: none;
+  }
+
+  .letter-sheet__stickers--mobile {
+    display: block;
+    inset: auto;
+    width: 100%;
+    height: auto;
+    min-height: 0;
+    object-fit: contain;
+    object-position: center;
+    animation: stickersSettle 1.15s cubic-bezier(.16,.78,.2,1) .15s both;
+  }
+
+  .letter-sheet__stickers--mobile-top {
+    top: 0;
+    right: 0;
+    left: 0;
+    clip-path: inset(0 0 49.5% 0);
+  }
+
+  .letter-sheet__stickers--mobile-bottom {
+    right: 0;
+    bottom: 0;
+    left: 0;
+    clip-path: inset(49.5% 0 0 0);
   }
 }
 
