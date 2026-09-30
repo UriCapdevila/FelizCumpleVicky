@@ -4,7 +4,7 @@
   const content = window.VICKY_CONTENT;
   const searchParams = new URLSearchParams(window.location.search);
   const previewTarget = searchParams.get("preview");
-  const previewMode = previewTarget === "1" || previewTarget === "texts";
+  const previewMode = searchParams.has("preview");
   const directTextPreview = previewTarget === "texts";
   const requestedScene = Number.parseInt(searchParams.get("scene") || "1", 10);
   const previewScene = Number.isFinite(requestedScene)
