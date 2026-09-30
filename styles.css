@@ -543,6 +543,9 @@ button:focus-visible {
 .lock-icon { color: var(--gold-bright); }
 
 .primary-button {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
   color: var(--ink);
   background: linear-gradient(105deg, #fffdf9 0%, #f4e6dd 52%, var(--gold-bright) 150%);
   border: 1px solid rgba(255, 255, 255, .76);
@@ -555,8 +558,14 @@ button:focus-visible {
   inset: 0;
   border-radius: inherit;
   background: linear-gradient(110deg, transparent 22%, rgba(255, 255, 255, .85) 45%, transparent 68%);
-  transform: translateX(-130%);
+  transform: translateX(-105%);
   animation: buttonShimmer 4.8s ease-in-out infinite 1.4s;
+  pointer-events: none;
+}
+
+.primary-button > span {
+  position: relative;
+  z-index: 1;
 }
 
 .primary-button:hover { transform: translateY(-3px); box-shadow: 0 1.4rem 4rem rgba(0, 0, 0, .33), inset 0 1px white; }
@@ -1415,8 +1424,8 @@ button:focus-visible {
 }
 
 @keyframes buttonShimmer {
-  0%, 58% { transform: translateX(-130%); }
-  78%, 100% { transform: translateX(130%); }
+  0%, 58% { transform: translateX(-105%); }
+  78%, 100% { transform: translateX(105%); }
 }
 
 @keyframes sceneIn {
