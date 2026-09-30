@@ -26,7 +26,7 @@ window.VICKY_CONTENT = {
         "Admiro tanto tu fortaleza... Y no digo que seas perfecta; yo no voy a idealizar nada. A veces no sabés qué decir u ocultás lo que sentís por miedo. También puede pasar que sobrepensás mucho todo, pero yo no busco que seas perfecta, porque para mí sos increíble tal y como sos. Es hermoso tenerte cerca, Vicky.",
         "Tu existencia merece ser celebrada con todo el amor del mundo; es infinita la cantidad de amor que merecés. Hoy y cada día de tu vida.",
       ],
-      stickers: "./assets/stickers-one-piece-letter-v4.png",
+      stickers: "./assets/stickers-one-piece-letter-v5.png",
       theme: "one-piece-letter",
     },
     {
