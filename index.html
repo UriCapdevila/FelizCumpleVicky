@@ -26,11 +26,32 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Marcellus&display=swap" rel="stylesheet" />
     <title>Para Vicky ✦ 9 de octubre</title>
-    <link rel="stylesheet" href="./styles.css?v=20260930g" />
+    <link rel="stylesheet" href="./styles.css?v=20261006a" />
     <link rel="stylesheet" href="./chromatic-progress.css?v=20260930d" />
   </head>
   <body>
     <div class="noise" aria-hidden="true"></div>
+
+    <audio id="background-music" loop preload="auto" playsinline autoplay>
+      <source
+        src="./music/Barbie%20-%2012%20Dancing%20Princesses%20(Theme)%20%5BAudio%5D%20Barbie%20in%20the%2012%20Dancing%20Princesses.mp3"
+        type="audio/mpeg"
+      />
+    </audio>
+    <button
+      class="music-toggle"
+      id="music-toggle"
+      type="button"
+      aria-label="Reproducir música"
+      aria-pressed="false"
+      title="Reproducir música"
+    >
+      <span class="music-toggle__note" aria-hidden="true">♪</span>
+      <span class="music-toggle__bars" aria-hidden="true">
+        <i></i><i></i><i></i>
+      </span>
+      <span class="music-toggle__hint" aria-hidden="true">Tocá para escuchar</span>
+    </button>
 
     <main id="app">
       <section class="gate" id="gate" aria-labelledby="gate-title">
@@ -136,6 +157,6 @@
 
     <noscript>Esta experiencia necesita JavaScript activado para comenzar.</noscript>
     <script src="./content.js?v=20260930k"></script>
-    <script src="./app.js?v=20260930h"></script>
+    <script src="./app.js?v=20261006a"></script>
   </body>
 </html>

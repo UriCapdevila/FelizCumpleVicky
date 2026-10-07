@@ -2974,3 +2974,154 @@ button:focus-visible {
     transform: translateY(-5.25rem);
   }
 }
+
+/* Música ambiental: persiste mientras cambia cada hoja de la experiencia. */
+#background-music { display: none; }
+
+.music-toggle {
+  position: fixed;
+  z-index: 140;
+  top: max(1rem, env(safe-area-inset-top));
+  right: max(1rem, env(safe-area-inset-right));
+  width: 3rem;
+  height: 3rem;
+  padding: 0;
+  display: grid;
+  place-items: center;
+  color: #885666;
+  border: 1px solid rgba(198, 155, 69, .5);
+  border-radius: 50%;
+  background: rgba(255, 253, 249, .9);
+  box-shadow:
+    0 .7rem 1.8rem rgba(111, 63, 80, .18),
+    inset 0 1px rgba(255, 255, 255, .95);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform .25s ease, color .25s ease, background .25s ease, box-shadow .25s ease;
+}
+
+.music-toggle::before {
+  position: absolute;
+  inset: .22rem;
+  border: 1px solid rgba(184, 121, 134, .2);
+  border-radius: inherit;
+  content: "";
+  pointer-events: none;
+}
+
+.music-toggle:hover {
+  transform: translateY(-2px);
+  color: #6f3f50;
+  background: rgba(255, 253, 249, .98);
+  box-shadow:
+    0 .85rem 2rem rgba(111, 63, 80, .22),
+    inset 0 1px white;
+}
+
+.music-toggle:active { transform: scale(.94); }
+
+.music-toggle__note {
+  position: relative;
+  z-index: 1;
+  font-family: Georgia, serif;
+  font-size: 1.3rem;
+  line-height: 1;
+}
+
+.music-toggle__note::after {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 1.2rem;
+  height: 1px;
+  content: "";
+  background: currentColor;
+  opacity: .72;
+  transform: translate(-50%, -50%) rotate(-48deg);
+  transform-origin: center;
+}
+
+.music-toggle__bars {
+  position: relative;
+  z-index: 1;
+  display: none;
+  height: 1.05rem;
+  align-items: end;
+  gap: .16rem;
+}
+
+.music-toggle__bars i {
+  width: .14rem;
+  min-height: .3rem;
+  border-radius: 999px;
+  background: currentColor;
+  animation: musicBar .8s ease-in-out infinite alternate;
+}
+
+.music-toggle__bars i:nth-child(2) { animation-delay: -.5s; }
+.music-toggle__bars i:nth-child(3) { animation-delay: -.25s; }
+
+.music-toggle.is-playing .music-toggle__note { display: none; }
+.music-toggle.is-playing .music-toggle__bars { display: flex; }
+
+.music-toggle__hint {
+  position: absolute;
+  top: 50%;
+  right: calc(100% + .55rem);
+  width: max-content;
+  padding: .48rem .7rem;
+  color: #704554;
+  border: 1px solid rgba(198, 155, 69, .28);
+  border-radius: 999px;
+  background: rgba(255, 253, 249, .94);
+  box-shadow: 0 .45rem 1.25rem rgba(111, 63, 80, .13);
+  font-size: .61rem;
+  font-weight: 700;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(.35rem, -50%);
+  transition: opacity .3s ease, transform .3s ease;
+}
+
+.music-toggle.is-awaiting {
+  animation: musicInvite 2.4s ease-in-out infinite;
+}
+
+.music-toggle.is-awaiting .music-toggle__hint {
+  opacity: 1;
+  transform: translate(0, -50%);
+}
+
+@keyframes musicBar {
+  from { height: .3rem; }
+  to { height: 1rem; }
+}
+
+@keyframes musicInvite {
+  0%, 100% { box-shadow: 0 .7rem 1.8rem rgba(111, 63, 80, .18), 0 0 0 0 rgba(201, 133, 148, .22); }
+  50% { box-shadow: 0 .7rem 1.8rem rgba(111, 63, 80, .18), 0 0 0 .55rem rgba(201, 133, 148, 0); }
+}
+
+@media (max-width: 30rem) {
+  .music-toggle {
+    top: max(.68rem, env(safe-area-inset-top));
+    right: max(.68rem, env(safe-area-inset-right));
+    width: 2.75rem;
+    height: 2.75rem;
+  }
+
+  .music-toggle__hint {
+    right: calc(100% + .42rem);
+    padding: .42rem .58rem;
+    font-size: .54rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .music-toggle,
+  .music-toggle__bars i { animation: none !important; }
+}

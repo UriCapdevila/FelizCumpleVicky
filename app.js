@@ -24,9 +24,86 @@
   const restartButton = document.querySelector("#restart-button");
   const previewBadge = document.querySelector("#preview-badge");
   const envelope = document.querySelector("#envelope-countdown");
+  const backgroundMusic = document.querySelector("#background-music");
+  const musicToggle = document.querySelector("#music-toggle");
 
   let activeScene = 0;
   let countdownTimer;
+  const musicPreferenceKey = "vicky-background-music";
+  let musicRequested = true;
+
+  try {
+    musicRequested = window.localStorage.getItem(musicPreferenceKey) !== "off";
+  } catch (_) {
+    musicRequested = true;
+  }
+
+  function rememberMusicPreference(enabled) {
+    try {
+      window.localStorage.setItem(musicPreferenceKey, enabled ? "on" : "off");
+    } catch (_) {
+      // La experiencia sigue funcionando aunque el navegador bloquee el almacenamiento.
+    }
+  }
+
+  function syncMusicControl(waitingForGesture = false) {
+    const isPlaying = !backgroundMusic.paused && !backgroundMusic.ended;
+    musicToggle.classList.toggle("is-playing", isPlaying);
+    musicToggle.classList.toggle("is-awaiting", waitingForGesture && musicRequested);
+    musicToggle.setAttribute("aria-pressed", String(isPlaying));
+
+    const action = isPlaying ? "Pausar música" : "Reproducir música";
+    musicToggle.setAttribute("aria-label", action);
+    musicToggle.title = action;
+  }
+
+  async function playBackgroundMusic(remember = false) {
+    musicRequested = true;
+    if (remember) rememberMusicPreference(true);
+
+    try {
+      await backgroundMusic.play();
+      syncMusicControl(false);
+      return true;
+    } catch (_) {
+      syncMusicControl(true);
+      return false;
+    }
+  }
+
+  function pauseBackgroundMusic() {
+    musicRequested = false;
+    rememberMusicPreference(false);
+    backgroundMusic.pause();
+    syncMusicControl(false);
+  }
+
+  function initBackgroundMusic() {
+    backgroundMusic.volume = 0.3;
+    syncMusicControl(false);
+
+    musicToggle.addEventListener("click", () => {
+      if (backgroundMusic.paused) playBackgroundMusic(true);
+      else pauseBackgroundMusic();
+    });
+
+    backgroundMusic.addEventListener("play", () => syncMusicControl(false));
+    backgroundMusic.addEventListener("pause", () => syncMusicControl(musicRequested));
+
+    const unlockOnInteraction = (event) => {
+      if (!musicRequested || !backgroundMusic.paused || event.target.closest("#music-toggle")) return;
+      playBackgroundMusic().then((started) => {
+        if (!started) return;
+        document.removeEventListener("pointerdown", unlockOnInteraction);
+        document.removeEventListener("keydown", unlockOnInteraction);
+      });
+    };
+
+    document.addEventListener("pointerdown", unlockOnInteraction);
+    document.addEventListener("keydown", unlockOnInteraction);
+
+    if (musicRequested) playBackgroundMusic();
+  }
 
   const twoDigits = (number) => String(Math.max(0, number)).padStart(2, "0");
 
@@ -330,6 +407,7 @@
   addSwipeNavigation();
   addSceneParallax();
   initStarVoyage();
+  initBackgroundMusic();
   updateCountdown();
   if (directGiftPreview) showGiftsImmediately();
   else if (directTextPreview) showJourney(previewScene, true);

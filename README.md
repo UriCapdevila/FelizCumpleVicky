@@ -2,6 +2,8 @@
 
 Una experiencia web privada de cumpleaños: cuenta regresiva hasta el 9 de octubre, recorrido visual y tres cartas-regalo interactivas.
 
+La música ambiental se reproduce en loop durante toda la experiencia. Si el navegador bloquea el inicio automático con sonido, comienza con la primera interacción o desde el botón musical; el mismo control permite pausarla y recuerda esa preferencia.
+
 ## Cambiar los textos
 
 Todo el contenido personal está en `content.js`. Ahí podés editar:
@@ -36,3 +38,4 @@ La fecha usa explícitamente la zona horaria de Buenos Aires (`-03:00`), así qu
 - `app.js`: cuenta regresiva e interacciones.
 - `content.js`: tus textos y regalos.
 - `assets/`: ilustraciones que forman parte del recorrido.
+- `music/`: canción ambiental de la experiencia.
