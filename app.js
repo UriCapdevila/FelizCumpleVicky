@@ -378,7 +378,7 @@
     try {
       window.localStorage.removeItem(bonusChoiceKey);
     } catch (_) {
-      // El botón de reinicio existe solamente para facilitar las pruebas.
+      // La experiencia sigue permitiendo volver a elegir aunque el almacenamiento esté bloqueado.
     }
   }
 
@@ -465,7 +465,7 @@
           `).join("")}
         </div>
       </section>
-      ${previewMode ? '<button class="bonus-reset" id="bonus-reset" type="button">Reiniciar elección</button>' : ""}
+      <button class="bonus-reset" id="bonus-reset" type="button">Reiniciar elección</button>
     `;
 
     const pathsButton = bonusResult.querySelector("#bonus-paths-button");
