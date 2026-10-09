@@ -2,7 +2,7 @@
 
 Una experiencia web privada de cumpleaños: cuenta regresiva hasta el 9 de octubre, recorrido visual y tres cartas-regalo interactivas.
 
-La música ambiental se reproduce en loop durante toda la experiencia. Si el navegador bloquea el inicio automático con sonido, comienza con la primera interacción o desde el botón musical; el mismo control permite pausarla y recuerda esa preferencia.
+La música ambiental se reproduce en loop durante toda la experiencia. Si el navegador bloquea el inicio automático con sonido, comienza con la primera interacción o desde el botón musical; el mismo control permite pausarla y recuerda esa preferencia. Al abrir el cofre bonus, la música cambia a la canción de One Piece y vuelve a la principal al regresar.
 
 ## Cambiar los textos
 
@@ -20,6 +20,10 @@ No cambies los nombres que están antes de los dos puntos. Editá solamente el t
 La página normal permanece bloqueada hasta la fecha configurada. Para probar la experiencia completa antes, agregá `?preview=1` al final de la dirección.
 
 Ejemplo local: `http://localhost:8888/?preview=1`
+
+Para revisar directamente el regalo sorpresa y su entrada de diez segundos, usá `?preview=bonus`. Durante el desarrollo también se puede agregar `&skipBonusIntro=1` para ver las cartas sin esperar la animación. Los diseños comparativos de las cartas se pueden abrir con `&bonusDesign=a`, `&bonusDesign=b` o `&bonusDesign=c`; el selector visual solamente aparece en este preview.
+
+La elección de una carta bonus se guarda en el navegador y es definitiva para esa instalación. Después de elegir, la ganadora queda destacada y los demás caminos se pueden consultar sin volver a participar.
 
 ## Comparar tipografías
 

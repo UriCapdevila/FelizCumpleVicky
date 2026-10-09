@@ -69,6 +69,105 @@ window.VICKY_CONTENT = {
     },
   ],
 
+  bonusGifts: [
+    {
+      id: "skincare",
+      symbol: "✦",
+      title: "Kit de skincare y labios",
+      detail: "Productos de la línea de vitamina C de Garnier —contorno de ojos, crema, sérum de día, sérum de noche y protector solar— junto con un reparador de labios ISDIN.",
+    },
+    {
+      id: "secador",
+      symbol: "☀",
+      title: "Un secador de pelo potente",
+      detail: "Un secador que realmente tenga fuerza y haga más simples esos días en los que querés arreglarte sin perder una eternidad.",
+    },
+    {
+      id: "toallas-my-melody",
+      symbol: "♡",
+      title: "Set de toallas My Melody",
+      detail: "Un toallón y una toalla de manos de My Melody, idealmente de Miniso, para sumar ternura hasta en los detalles cotidianos.",
+    },
+    {
+      id: "tupper-termico",
+      symbol: "❀",
+      title: "Un tupper térmico",
+      detail: "Un tupper que conserve la temperatura de la comida, como el de Miniso que anotaste en tu wishlist.",
+    },
+    {
+      id: "zapatillas",
+      symbol: "➳",
+      title: "Las zapatillas que vos quieras",
+      detail: "El modelo, el color y el estilo quedan completamente en tus manos. Este tesoro se elige a tu gusto.",
+    },
+    {
+      id: "apple-watch",
+      symbol: "⌁",
+      title: "Un Apple Watch",
+      detail: "Ese regalo importante que estaba en tu lista y que podría acompañarte todos los días.",
+    },
+    {
+      id: "microfono",
+      symbol: "♬",
+      title: "Un micrófono con phantom",
+      detail: "Para que tengas una herramienta linda y potente con la que hacer sonar todas tus ideas.",
+    },
+    {
+      id: "base-tirtir",
+      symbol: "◇",
+      title: "La base TirTir",
+      detail: "La base TirTir de tu wishlist, buscando el tono correcto para que el regalo sea realmente para vos.",
+    },
+    {
+      id: "peluche-sanrio",
+      symbol: "♥",
+      title: "Un peluche grande de Sanrio",
+      detail: "Un peluche grande de Hello Kitty o My Melody para abrazar, decorar y llenar de ternura tu espacio.",
+    },
+    {
+      id: "gorrito-chopper",
+      symbol: "✚",
+      title: "El gorrito celeste de Chopper",
+      detail: "El gorrito de Chopper de One Piece, exactamente en la versión celeste que describiste.",
+    },
+    {
+      id: "aros-zoro",
+      symbol: "三",
+      title: "Los aros de Zoro",
+      detail: "Los tres aros inspirados en Zoro y hechos de acero, porque ese detalle es innegociable.",
+    },
+    {
+      id: "figura-robin",
+      symbol: "❁",
+      title: "Una figura de Nico Robin",
+      detail: "Una figura de Nico Robin para sumar a tu colección uno de tus personajes favoritos de One Piece.",
+    },
+    {
+      id: "figura-boa",
+      symbol: "♛",
+      title: "Una figura de Boa Hancock",
+      detail: "Una figura de Boa Hancock digna de la emperatriz pirata y de un lugar especial en tu colección.",
+    },
+    {
+      id: "figura-zoro",
+      symbol: "⚔",
+      title: "Una figura de Zoro",
+      detail: "Una figura de Zoro cuidando cada detalle, incluidas sus tres espadas, como corresponde.",
+    },
+    {
+      id: "miku-sakura",
+      symbol: "✿",
+      title: "Una figura Sakura Miku",
+      detail: "La figura de Hatsune Miku en su versión Sakura, delicada, rosada y perfecta para tu estética.",
+    },
+    {
+      id: "portavaso-stanley",
+      symbol: "◌",
+      title: "Un portavaso para tu Stanley",
+      detail: "El portavaso para Quencher de Stanley que guardaste en tu wishlist.",
+    },
+  ],
+
   closing:
     "Cualquiera de estos planes está abierto para cuando vos lo sientas:\n\nQue tengas un año tan hermoso, luminoso y especial como lo sos vos.\n\nFeliz cumpleaños y con mucho amor, Uri.",
 };

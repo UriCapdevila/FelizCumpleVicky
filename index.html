@@ -26,7 +26,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Marcellus&display=swap" rel="stylesheet" />
     <title>Para Vicky ✦ 9 de octubre</title>
-    <link rel="stylesheet" href="./styles.css?v=20261006a" />
+    <link rel="stylesheet" href="./styles.css?v=20261008a" />
     <link rel="stylesheet" href="./chromatic-progress.css?v=20260930d" />
   </head>
   <body>
@@ -38,13 +38,19 @@
         type="audio/mpeg"
       />
     </audio>
+    <audio id="bonus-music" loop preload="metadata" playsinline>
+      <source
+        src="./music/One%20Piece%20OST%20Overtaken%20EPIC%20VERSION%20(Drums%20of%20Liberation).mp3"
+        type="audio/mpeg"
+      />
+    </audio>
     <button
       class="music-toggle"
       id="music-toggle"
       type="button"
-      aria-label="Reproducir música"
+      aria-label="Silenciar música"
       aria-pressed="false"
-      title="Reproducir música"
+      title="Silenciar música"
     >
       <span class="music-toggle__note" aria-hidden="true">♪</span>
       <span class="music-toggle__bars" aria-hidden="true">
@@ -151,12 +157,87 @@
           </div>
         </div>
 
+        <div class="bonus-discovery">
+          <button
+            class="bonus-chest-trigger"
+            id="bonus-chest-trigger"
+            type="button"
+            aria-label="Descubrir el regalo secreto"
+          >
+            <span class="bonus-chest-trigger__spark bonus-chest-trigger__spark--one" aria-hidden="true">✦</span>
+            <span class="bonus-chest-trigger__spark bonus-chest-trigger__spark--two" aria-hidden="true">✧</span>
+            <img src="./assets/bonus-chest-closed.png" alt="" aria-hidden="true" loading="lazy" />
+          </button>
+        </div>
+
         <button class="text-button gifts__restart" id="restart-button" type="button">Volver a vivirlo ↺</button>
+      </section>
+
+      <section class="bonus hidden" id="bonus" aria-labelledby="bonus-title">
+        <div class="bonus__ocean" aria-hidden="true"></div>
+        <div class="bonus__map" aria-hidden="true"></div>
+        <div class="bonus__stickers" aria-hidden="true"></div>
+        <div class="bonus__particles" aria-hidden="true">
+          <i></i><i></i><i></i><i></i><i></i><i></i>
+        </div>
+
+        <button class="bonus__close" id="bonus-close" type="button" aria-label="Volver a los regalos">
+          <span aria-hidden="true">←</span><span>Volver</span>
+        </button>
+
+        <nav class="bonus-design-picker hidden" id="bonus-design-picker" aria-label="Comparar diseños de las cartas">
+          <span>Diseño</span>
+          <button type="button" data-bonus-design="a" aria-label="Ver diseño mapa de oro">A</button>
+          <button type="button" data-bonus-design="b" aria-label="Ver diseño noche pirata">B</button>
+          <button type="button" data-bonus-design="c" aria-label="Ver diseño perla rosada">C</button>
+        </nav>
+
+        <div class="bonus__intro" id="bonus-intro">
+          <p class="bonus__eyebrow">Un último secreto</p>
+          <h2 id="bonus-title">El mapa todavía guardaba un tesoro.</h2>
+          <p class="bonus__intro-copy">Pensaste que eso era todo… pero había una aventura más esperándote.</p>
+
+          <div class="bonus__chest-stage" aria-hidden="true">
+            <span class="bonus__chest-glow"></span>
+            <img class="bonus__chest bonus__chest--closed" src="./assets/bonus-chest-closed.png" alt="" loading="lazy" />
+            <img class="bonus__chest bonus__chest--open" src="./assets/bonus-chest-open.png" alt="" loading="lazy" />
+          </div>
+
+          <div class="bonus__voyage" aria-hidden="true">
+            <span>El mapa está eligiendo los caminos…</span>
+            <i><b></b></i>
+          </div>
+        </div>
+
+        <div class="bonus__selection" id="bonus-selection">
+          <header class="bonus__header">
+            <p class="bonus__eyebrow">El destino permite una sola elección</p>
+            <h2>Elegí tu carta del tesoro.</h2>
+            <p>Después vas a poder descubrir qué guardaban las demás, pero esta será la carta que marque tu camino.</p>
+          </header>
+          <div class="bonus-deck" id="bonus-deck" aria-label="Cartas sorpresa de la wishlist"></div>
+          <p class="bonus__swipe"><span aria-hidden="true">↔</span> Deslizá para explorar las cartas</p>
+        </div>
+
+        <div class="bonus-result hidden" id="bonus-result" aria-live="polite"></div>
+
+        <div class="bonus-confirm hidden" id="bonus-confirm" role="dialog" aria-modal="true" aria-labelledby="bonus-confirm-title">
+          <div class="bonus-confirm__panel">
+            <p class="bonus__eyebrow">El mapa está escuchando</p>
+            <h3 id="bonus-confirm-title">¿Esta es tu carta?</h3>
+            <p>Podrás ver los otros caminos después, pero esta elección quedará marcada como tu tesoro.</p>
+            <strong id="bonus-confirm-card">Tu carta elegida</strong>
+            <div class="bonus-confirm__actions">
+              <button class="bonus-button bonus-button--quiet" id="bonus-cancel" type="button">Seguir mirando</button>
+              <button class="bonus-button" id="bonus-confirm-choice" type="button">Elegir esta carta</button>
+            </div>
+          </div>
+        </div>
       </section>
     </main>
 
     <noscript>Esta experiencia necesita JavaScript activado para comenzar.</noscript>
-    <script src="./content.js?v=20260930k"></script>
-    <script src="./app.js?v=20261006a"></script>
+    <script src="./content.js?v=20261007b"></script>
+    <script src="./app.js?v=20261008a"></script>
   </body>
 </html>

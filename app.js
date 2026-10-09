@@ -7,6 +7,10 @@
   const previewMode = searchParams.has("preview");
   const directTextPreview = previewTarget === "texts";
   const directGiftPreview = previewTarget === "gifts";
+  const directBonusPreview = previewTarget === "bonus";
+  const skipBonusIntro = previewMode && searchParams.has("skipBonusIntro");
+  const previewBonusChoice = previewMode ? searchParams.get("bonusChoice") : null;
+  const requestedBonusDesign = searchParams.get("bonusDesign");
   const requestedScene = Number.parseInt(searchParams.get("scene") || "1", 10);
   const previewScene = Number.isFinite(requestedScene)
     ? Math.min(Math.max(requestedScene - 1, 0), content.scenes.length - 1)
@@ -16,6 +20,7 @@
   const gate = document.querySelector("#gate");
   const journey = document.querySelector("#journey");
   const gifts = document.querySelector("#gifts");
+  const bonus = document.querySelector("#bonus");
   const stage = document.querySelector("#scene-stage");
   const progress = document.querySelector("#progress");
   const enterButton = document.querySelector("#enter-button");
@@ -25,17 +30,37 @@
   const previewBadge = document.querySelector("#preview-badge");
   const envelope = document.querySelector("#envelope-countdown");
   const backgroundMusic = document.querySelector("#background-music");
+  const bonusMusic = document.querySelector("#bonus-music");
   const musicToggle = document.querySelector("#music-toggle");
+  const bonusChestTrigger = document.querySelector("#bonus-chest-trigger");
+  const bonusClose = document.querySelector("#bonus-close");
+  const bonusIntro = document.querySelector("#bonus-intro");
+  const bonusSelection = document.querySelector("#bonus-selection");
+  const bonusDeck = document.querySelector("#bonus-deck");
+  const bonusResult = document.querySelector("#bonus-result");
+  const bonusConfirm = document.querySelector("#bonus-confirm");
+  const bonusConfirmCard = document.querySelector("#bonus-confirm-card");
+  const bonusCancel = document.querySelector("#bonus-cancel");
+  const bonusConfirmChoice = document.querySelector("#bonus-confirm-choice");
+  const bonusDesignPicker = document.querySelector("#bonus-design-picker");
+  const bonusDesignButtons = [...document.querySelectorAll("[data-bonus-design]")];
 
   let activeScene = 0;
   let countdownTimer;
+  let bonusArrivalTimer;
+  let pendingBonusGift = null;
+  let musicFadeFrame;
+  let bonusAssetsPreloaded = false;
   const musicPreferenceKey = "vicky-background-music";
-  let musicRequested = true;
+  const bonusChoiceKey = "vicky-bonus-choice-v1";
+  const musicVolume = 0.3;
+  let activeMusic = backgroundMusic;
+  let musicMuted = false;
 
   try {
-    musicRequested = window.localStorage.getItem(musicPreferenceKey) !== "off";
+    musicMuted = window.localStorage.getItem(musicPreferenceKey) === "off";
   } catch (_) {
-    musicRequested = true;
+    musicMuted = false;
   }
 
   function rememberMusicPreference(enabled) {
@@ -47,22 +72,22 @@
   }
 
   function syncMusicControl(waitingForGesture = false) {
-    const isPlaying = !backgroundMusic.paused && !backgroundMusic.ended;
-    musicToggle.classList.toggle("is-playing", isPlaying);
-    musicToggle.classList.toggle("is-awaiting", waitingForGesture && musicRequested);
-    musicToggle.setAttribute("aria-pressed", String(isPlaying));
+    const isPlaying = !activeMusic.paused && !activeMusic.ended;
+    musicToggle.classList.toggle("is-playing", isPlaying && !musicMuted);
+    musicToggle.classList.toggle("is-muted", musicMuted);
+    musicToggle.classList.toggle("is-awaiting", waitingForGesture);
+    musicToggle.setAttribute("aria-pressed", String(musicMuted));
 
-    const action = isPlaying ? "Pausar música" : "Reproducir música";
+    const action = musicMuted ? "Activar sonido" : "Silenciar música";
     musicToggle.setAttribute("aria-label", action);
     musicToggle.title = action;
   }
 
-  async function playBackgroundMusic(remember = false) {
-    musicRequested = true;
-    if (remember) rememberMusicPreference(true);
-
+  async function playBackgroundMusic() {
     try {
-      await backgroundMusic.play();
+      activeMusic.volume = musicVolume;
+      activeMusic.muted = musicMuted;
+      await activeMusic.play();
       syncMusicControl(false);
       return true;
     } catch (_) {
@@ -71,27 +96,104 @@
     }
   }
 
-  function pauseBackgroundMusic() {
-    musicRequested = false;
-    rememberMusicPreference(false);
-    backgroundMusic.pause();
+  function setMusicMuted(muted, remember = false) {
+    musicMuted = muted;
+    backgroundMusic.muted = muted;
+    bonusMusic.muted = muted;
+    if (remember) rememberMusicPreference(!muted);
     syncMusicControl(false);
   }
 
+  function stopMusicFade() {
+    if (!musicFadeFrame) return;
+    window.cancelAnimationFrame(musicFadeFrame);
+    musicFadeFrame = undefined;
+  }
+
+  async function switchMusic(nextTrack, { restart = false, startAt } = {}) {
+    const previousTrack = activeMusic;
+    stopMusicFade();
+
+    const seekNextTrack = () => {
+      try {
+        nextTrack.currentTime = Number.isFinite(startAt) ? startAt : 0;
+      } catch {
+        // Safari can reject seeks before the audio metadata is available.
+      }
+    };
+
+    if (restart || Number.isFinite(startAt)) {
+      if (nextTrack.readyState >= 1) {
+        seekNextTrack();
+      } else {
+        nextTrack.addEventListener("loadedmetadata", seekNextTrack, { once: true });
+      }
+    }
+    activeMusic = nextTrack;
+    nextTrack.muted = musicMuted;
+
+    nextTrack.volume = previousTrack === nextTrack ? musicVolume : 0;
+
+    try {
+      await nextTrack.play();
+    } catch (_) {
+      syncMusicControl(true);
+      return false;
+    }
+
+    if (previousTrack === nextTrack || previousTrack.paused) {
+      nextTrack.volume = musicVolume;
+      syncMusicControl(false);
+      return true;
+    }
+
+    const startedAt = window.performance.now();
+    const duration = reduceMotion ? 250 : 1400;
+
+    const fade = (now) => {
+      const progress = Math.min(1, Math.max(0, (now - startedAt) / duration));
+      previousTrack.volume = musicVolume * (1 - progress);
+      nextTrack.volume = musicVolume * progress;
+
+      if (progress < 1) {
+        musicFadeFrame = window.requestAnimationFrame(fade);
+        return;
+      }
+
+      previousTrack.pause();
+      previousTrack.volume = musicVolume;
+      nextTrack.volume = musicVolume;
+      musicFadeFrame = undefined;
+      syncMusicControl(false);
+    };
+
+    musicFadeFrame = window.requestAnimationFrame(fade);
+    return true;
+  }
+
   function initBackgroundMusic() {
-    backgroundMusic.volume = 0.3;
+    backgroundMusic.volume = musicVolume;
+    bonusMusic.volume = musicVolume;
+    setMusicMuted(musicMuted);
     syncMusicControl(false);
 
     musicToggle.addEventListener("click", () => {
-      if (backgroundMusic.paused) playBackgroundMusic(true);
-      else pauseBackgroundMusic();
+      setMusicMuted(!musicMuted, true);
+      if (activeMusic.paused) playBackgroundMusic();
     });
 
-    backgroundMusic.addEventListener("play", () => syncMusicControl(false));
-    backgroundMusic.addEventListener("pause", () => syncMusicControl(musicRequested));
+    [backgroundMusic, bonusMusic].forEach((track) => {
+      track.addEventListener("play", () => {
+        if (track === activeMusic) syncMusicControl(false);
+      });
+      track.addEventListener("pause", () => {
+        if (track === activeMusic) syncMusicControl(true);
+      });
+    });
 
     const unlockOnInteraction = (event) => {
-      if (!musicRequested || !backgroundMusic.paused || event.target.closest("#music-toggle")) return;
+      const target = event.target instanceof Element ? event.target : null;
+      if (!activeMusic.paused || target?.closest("#music-toggle")) return;
       playBackgroundMusic().then((started) => {
         if (!started) return;
         document.removeEventListener("pointerdown", unlockOnInteraction);
@@ -102,7 +204,7 @@
     document.addEventListener("pointerdown", unlockOnInteraction);
     document.addEventListener("keydown", unlockOnInteraction);
 
-    if (musicRequested) playBackgroundMusic();
+    playBackgroundMusic();
   }
 
   const twoDigits = (number) => String(Math.max(0, number)).padStart(2, "0");
@@ -256,7 +358,202 @@
     });
   }
 
+  function readBonusChoice() {
+    try {
+      return window.localStorage.getItem(bonusChoiceKey);
+    } catch (_) {
+      return null;
+    }
+  }
+
+  function saveBonusChoice(giftId) {
+    try {
+      window.localStorage.setItem(bonusChoiceKey, giftId);
+    } catch (_) {
+      // La carta igualmente se revela aunque el navegador bloquee el almacenamiento.
+    }
+  }
+
+  function clearBonusChoice() {
+    try {
+      window.localStorage.removeItem(bonusChoiceKey);
+    } catch (_) {
+      // El botón de reinicio existe solamente para facilitar las pruebas.
+    }
+  }
+
+  function shuffledBonusGifts() {
+    const giftsCopy = [...content.bonusGifts];
+    for (let index = giftsCopy.length - 1; index > 0; index -= 1) {
+      const randomIndex = Math.floor(Math.random() * (index + 1));
+      [giftsCopy[index], giftsCopy[randomIndex]] = [giftsCopy[randomIndex], giftsCopy[index]];
+    }
+    return giftsCopy;
+  }
+
+  function applyBonusDesign(design) {
+    const nextDesign = ["a", "b", "c"].includes(design) ? design : "a";
+    bonus.classList.remove("bonus-design-a", "bonus-design-b", "bonus-design-c");
+    bonus.classList.add(`bonus-design-${nextDesign}`);
+    bonusDesignButtons.forEach((button) => {
+      button.setAttribute("aria-pressed", String(button.dataset.bonusDesign === nextDesign));
+    });
+  }
+
+  function buildBonusCards() {
+    bonusDeck.replaceChildren();
+
+    shuffledBonusGifts().forEach((gift, index) => {
+      const card = document.createElement("button");
+      card.type = "button";
+      card.className = "bonus-card";
+      card.style.setProperty("--card-index", index);
+      card.setAttribute("aria-label", `Elegir la carta sorpresa ${index + 1}`);
+      card.innerHTML = `
+        <span class="bonus-card__paper">
+          <span class="bonus-card__corner bonus-card__corner--one" aria-hidden="true">✦</span>
+          <span class="bonus-card__corner bonus-card__corner--two" aria-hidden="true">✧</span>
+          <span class="bonus-card__compass" aria-hidden="true"><span class="bonus-card__question">?</span></span>
+          <span class="bonus-card__seal" aria-hidden="true">✦</span>
+        </span>
+      `;
+      card.addEventListener("click", () => {
+        pendingBonusGift = { gift, card };
+        bonusConfirmCard.textContent = "Tu carta elegida";
+        bonusConfirm.classList.remove("hidden");
+        bonusConfirmChoice.focus({ preventScroll: true });
+      });
+      bonusDeck.append(card);
+    });
+  }
+
+  function renderBonusResult(choiceId) {
+    const chosenGift = content.bonusGifts.find((gift) => gift.id === choiceId);
+    if (!chosenGift) return false;
+
+    const otherGifts = content.bonusGifts.filter((gift) => gift.id !== choiceId);
+    bonusIntro.classList.add("hidden");
+    bonusSelection.classList.add("hidden");
+    bonusResult.classList.remove("hidden");
+    bonus.classList.add("has-choice", "cards-arrived");
+
+    bonusResult.innerHTML = `
+      <header class="bonus__header bonus-result__header">
+        <p class="bonus__eyebrow">El destino marcó tu camino</p>
+        <h2>Este es tu tesoro.</h2>
+      </header>
+      <article class="bonus-prize">
+        <span class="bonus-prize__label">Tu carta elegida</span>
+        <span class="bonus-prize__symbol" aria-hidden="true">${chosenGift.symbol}</span>
+        <h3>${chosenGift.title}</h3>
+      </article>
+      <p class="bonus-result__note">La elección quedó guardada. Si este regalo ya llegó a tus manos, avisame y buscamos juntos una nueva ruta.</p>
+      <button class="bonus-button bonus-paths-button" id="bonus-paths-button" type="button" aria-expanded="false">
+        Ver los otros caminos
+      </button>
+      <section class="bonus-paths hidden" id="bonus-paths" aria-label="Regalos que guardaban las otras cartas">
+        <header>
+          <p class="bonus__eyebrow">Los tesoros que quedaron en el mapa</p>
+          <h3>Los otros caminos.</h3>
+        </header>
+        <div class="bonus-paths__grid">
+          ${otherGifts.map((gift) => `
+            <article class="bonus-path-card">
+              <span aria-hidden="true">${gift.symbol}</span>
+              <h4>${gift.title}</h4>
+            </article>
+          `).join("")}
+        </div>
+      </section>
+      ${previewMode ? '<button class="bonus-reset" id="bonus-reset" type="button">Reiniciar elección</button>' : ""}
+    `;
+
+    const pathsButton = bonusResult.querySelector("#bonus-paths-button");
+    const paths = bonusResult.querySelector("#bonus-paths");
+    pathsButton.addEventListener("click", () => {
+      const opening = paths.classList.contains("hidden");
+      paths.classList.toggle("hidden", !opening);
+      pathsButton.setAttribute("aria-expanded", String(opening));
+      pathsButton.textContent = opening ? "Ocultar los otros caminos" : "Ver los otros caminos";
+      if (opening) window.setTimeout(() => paths.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" }), 80);
+    });
+
+    if (previewMode && searchParams.has("showBonusPaths")) pathsButton.click();
+
+    const resetButton = bonusResult.querySelector("#bonus-reset");
+    resetButton?.addEventListener("click", () => {
+      clearBonusChoice();
+      bonus.classList.remove("has-choice");
+      bonusResult.classList.add("hidden");
+      bonusSelection.classList.remove("hidden");
+      buildBonusCards();
+      bonus.scrollTop = 0;
+    });
+
+    bonus.scrollTop = 0;
+    return true;
+  }
+
+  function openBonus() {
+    window.clearTimeout(bonusArrivalTimer);
+    pendingBonusGift = null;
+    bonusConfirm.classList.add("hidden");
+    bonus.classList.remove("hidden", "is-leaving", "cards-arrived", "has-choice", "skip-intro");
+    document.body.classList.add("bonus-open");
+    gifts.setAttribute("aria-hidden", "true");
+    bonus.scrollTop = 0;
+
+    const savedChoice = previewBonusChoice || readBonusChoice();
+    if (savedChoice && content.bonusGifts.some((gift) => gift.id === savedChoice)) {
+      switchMusic(bonusMusic, { startAt: 10 });
+      renderBonusResult(savedChoice);
+      return;
+    }
+
+    bonusIntro.classList.remove("hidden");
+    bonusSelection.classList.remove("hidden");
+    bonusResult.classList.add("hidden");
+    buildBonusCards();
+    switchMusic(bonusMusic, { restart: true });
+
+    if (skipBonusIntro) {
+      bonus.classList.add("skip-intro", "cards-arrived");
+      return;
+    }
+
+    window.requestAnimationFrame(() => bonus.classList.add("is-visible"));
+    bonusArrivalTimer = window.setTimeout(() => {
+      bonus.classList.add("cards-arrived");
+      bonus.scrollTop = 0;
+    }, reduceMotion ? 900 : 9850);
+  }
+
+  function closeBonus() {
+    window.clearTimeout(bonusArrivalTimer);
+    bonusConfirm.classList.add("hidden");
+    bonus.classList.add("is-leaving");
+    switchMusic(backgroundMusic);
+    gifts.removeAttribute("aria-hidden");
+    document.body.classList.remove("bonus-open");
+
+    window.setTimeout(() => {
+      bonus.classList.add("hidden");
+      bonus.classList.remove("is-visible", "is-leaving", "cards-arrived", "skip-intro");
+      bonusChestTrigger.focus({ preventScroll: true });
+    }, reduceMotion ? 0 : 450);
+  }
+
+  function confirmBonusChoice() {
+    if (!pendingBonusGift) return;
+    const { gift } = pendingBonusGift;
+    saveBonusChoice(gift.id);
+    bonusConfirm.classList.add("hidden");
+    pendingBonusGift = null;
+    renderBonusResult(gift.id);
+  }
+
   function showGifts() {
+    preloadBonusAssets();
     journey.classList.add("is-leaving");
     window.setTimeout(() => {
       journey.classList.add("hidden");
@@ -267,11 +564,30 @@
   }
 
   function showGiftsImmediately() {
+    preloadBonusAssets();
     gate.classList.add("hidden");
     journey.classList.add("hidden");
     gifts.classList.remove("hidden");
     gifts.scrollTop = 0;
     document.body.classList.add("in-experience");
+  }
+
+  function preloadBonusAssets() {
+    if (bonusAssetsPreloaded) return;
+    bonusAssetsPreloaded = true;
+
+    [
+      "./assets/bonus-chest-closed.png",
+      "./assets/bonus-chest-open.png",
+      "./assets/bonus-sunset-zoro-bg-desktop-v2.png",
+      "./assets/bonus-sunset-zoro-bg-mobile-v2.png",
+    ].forEach((source) => {
+      const image = new Image();
+      image.src = source;
+    });
+
+    bonusMusic.preload = "auto";
+    bonusMusic.load();
   }
 
   function restartExperience() {
@@ -393,8 +709,30 @@
     else showScene(activeScene + 1);
   });
   restartButton.addEventListener("click", restartExperience);
+  bonusChestTrigger.addEventListener("click", openBonus);
+  bonusClose.addEventListener("click", closeBonus);
+  bonusCancel.addEventListener("click", () => {
+    bonusConfirm.classList.add("hidden");
+    pendingBonusGift?.card.focus({ preventScroll: true });
+    pendingBonusGift = null;
+  });
+  bonusConfirmChoice.addEventListener("click", confirmBonusChoice);
+  bonusDesignButtons.forEach((button) => {
+    button.addEventListener("click", () => applyBonusDesign(button.dataset.bonusDesign));
+  });
+  bonusConfirm.addEventListener("click", (event) => {
+    if (event.target !== bonusConfirm) return;
+    bonusCancel.click();
+  });
 
   document.addEventListener("keydown", (event) => {
+    if (!bonus.classList.contains("hidden")) {
+      if (event.key === "Escape") {
+        if (!bonusConfirm.classList.contains("hidden")) bonusCancel.click();
+        else closeBonus();
+      }
+      return;
+    }
     if (journey.classList.contains("hidden")) return;
     if (event.key === "ArrowRight") nextButton.click();
     if (event.key === "ArrowLeft") previousButton.click();
@@ -408,8 +746,13 @@
   addSceneParallax();
   initStarVoyage();
   initBackgroundMusic();
+  applyBonusDesign(requestedBonusDesign);
+  if (previewMode && directBonusPreview) bonusDesignPicker.classList.remove("hidden");
   updateCountdown();
-  if (directGiftPreview) showGiftsImmediately();
+  if (directBonusPreview) {
+    showGiftsImmediately();
+    window.setTimeout(openBonus, 80);
+  } else if (directGiftPreview) showGiftsImmediately();
   else if (directTextPreview) showJourney(previewScene, true);
   countdownTimer = window.setInterval(updateCountdown, 1000);
 })();
